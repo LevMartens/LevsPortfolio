@@ -5,6 +5,8 @@ import 'package:lev_martens/ui/sizing_information.dart';
 class BaseWidget extends StatelessWidget {
   final Widget Function(
       BuildContext context, SizingInformation sizingInformation) builder;
+
+
   const BaseWidget({Key key, this.builder}) : super(key: key);
 
   @override

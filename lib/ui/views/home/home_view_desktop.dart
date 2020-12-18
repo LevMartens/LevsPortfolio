@@ -4,7 +4,7 @@ import 'package:lev_martens/ui/sizing_information.dart';
 import 'package:lev_martens/enums/device_screen_type.dart';
 import 'package:lev_martens/widgets/app_drawer.dart';
 
-class HomeMobilePortrait extends StatelessWidget {
+class HomeDesktop extends StatelessWidget {
   final _scrollController = ScrollController(keepScrollOffset: false);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -23,9 +23,10 @@ class HomeMobilePortrait extends StatelessWidget {
               Container(
                 color: Colors.white70,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Stack(children: [
+
+
                       Container(
                         width: screenWidth,
                         height: screenWidth * 0.5123,
@@ -42,56 +43,7 @@ class HomeMobilePortrait extends StatelessWidget {
                         width: screenWidth,
                         height: screenWidth * 0.5123,
                         child: Center(child: Text('HELLO WORLD',style: TextStyle(color: Colors.white, fontSize: 25),)),)
-                    ]),
-                  ],
-                ),
-              ),
-            ]),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
-class HomeMobileLandscape extends StatelessWidget {
-  final _scrollController = ScrollController(keepScrollOffset: false);
-  HomeMobileLandscape({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width; //- 100;
-
-    return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          SliverFixedExtentList(
-            itemExtent: 2300,
-            delegate: SliverChildListDelegate([
-              Container(
-                color: Colors.white70,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    //AppDrawer(),
-                    Stack(children: [
-                      Container(
-                        width: screenWidth,
-                        height: screenWidth * 0.5123,
-                        child: FittedBox(
-                            fit: BoxFit.fill,
-                            child: Image.asset('assets/road.jpg')),
-                      ),
-                      Container(
-                        width: screenWidth,
-                        height: screenWidth * 0.5123,
-                        color: Colors.black45,
-                      ),
-                      Container(
-                        width: screenWidth,
-                        height: screenWidth * 0.5123,
-                        child: Center(child: Text('HELLO WORLD',style: TextStyle(color: Colors.white, fontSize: 25),)),)
                     ]),
                   ],
                 ),
