@@ -21,6 +21,8 @@ class _HomePageState extends State<HomeTablet> {
   AnimationController animationControllerForTest;
   AnimationController animationControllerForAboutMe;
   AnimationController animationControllerForPortfolio;
+  AnimationController animationControllerForPhone;
+  AnimationController animationControllerForVTitle;
   @override
   Widget build(BuildContext context) {
 
@@ -200,6 +202,79 @@ class _HomePageState extends State<HomeTablet> {
                         child: Text('PORTFOLIO', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 45, fontWeight: FontWeight.w500),),
                       ),
                     ),
+                  ),
+                  Row(
+                    children: [
+                      //slight delay in fade in
+                      Center(
+                        child: VisibilityDetector(
+
+                          key: Key('VTitle'),
+
+                          onVisibilityChanged: (visibilityInfo) {
+                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                            debugPrint(
+                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                            if(visiblePercentage > 10) {
+                              print('>10');
+                              animationControllerForVTitle.forward();
+                            }
+                            if(visiblePercentage == 0) {
+                              print('<50');
+                              animationControllerForVTitle.reverse();
+                            }
+
+                          },
+                          child: FadeIn(
+                            duration: Duration(milliseconds: 1000),
+                            manualTrigger: true,
+                            animate: false,
+                            controller: ( controller ) => animationControllerForVTitle = controller,
+
+                            child: Container(
+
+                                child: Text('Verossa Valley', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 35, fontWeight: FontWeight.w500),)),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: VisibilityDetector(
+
+                          key: Key('Phone'),
+
+                          onVisibilityChanged: (visibilityInfo) {
+                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                            debugPrint(
+                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                            if(visiblePercentage > 10) {
+                              print('>10');
+                              animationControllerForPhone.forward();
+                            }
+                            if(visiblePercentage == 0) {
+                              print('<50');
+                              animationControllerForPhone.reverse();
+                            }
+
+                          },
+                          child: FadeIn(
+                            duration: Duration(milliseconds: 1000),
+                            manualTrigger: true,
+                            animate: false,
+                            controller: ( controller ) => animationControllerForPhone = controller,
+
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 500.0),
+                              child: Container(
+                                height: 500,
+                                  width: 300,
+
+                                  child: Image.asset('assets/screenshot-3.jpg')),
+                            ),
+
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   
 

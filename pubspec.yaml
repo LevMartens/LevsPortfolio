@@ -59,6 +59,7 @@ flutter:
     - assets/LevHeader.jpg
     - assets/road.jpg
     - assets/IMG_1102.jpg
+    - assets/screenshot-3.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
