@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.1
   animate_do: ^1.7.5
   visibility_detector: ^0.1.5
+  url_launcher: ^5.7.10
   # device_preview: ^0.5.5
 
 dev_dependencies:
@@ -74,6 +75,10 @@ flutter:
     - assets/screenshot4.jpg
     - assets/screenshot5.jpg
     - assets/screenshot6.jpg
+    - assets/TestFlight_Icon.png
+    - assets/github.png
+    - assets/github2.png
+    - assets/stack.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

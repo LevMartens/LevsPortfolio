@@ -721,7 +721,25 @@ class _HomePageState extends State<HomeTablet> {
                                             child: Text('Provider', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
                                       ],)
                                   ],),
-                                  SizedBox(height: 60,),
+                                  SizedBox(height: 20,),
+                                  Row(
+                                    children: [
+                                      Container(
+
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                        ),
+
+                                          height: 40,
+                                          width: 40,
+
+                                          child: Image.asset('assets/TestFlight_Icon.png')),
+                                      SizedBox(width: 10,),
+                                      Container(
+                                          child: Text('Available on TestFlight', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
+                                    ],
+                                  ),
+                                  SizedBox(height: 20,),
                                   GestureDetector(
                                     onTap: (){
                                       if(verossaSelected == false) {
