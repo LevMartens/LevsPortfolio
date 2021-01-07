@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 
 class HomeDesktop extends StatefulWidget {
@@ -30,6 +30,23 @@ class _HomePageState extends State<HomeDesktop> {
   AnimationController animationControllerForTTitle;
   AnimationController animationControllerForMoreAbout;
   AnimationController animationControllerForMoreVerossa;
+
+  _launchGitHubURL() async {
+    const url = 'https://github.com/LevMartens';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  _launchStackOFURL() async {
+    const url = 'https://stackoverflow.com/users/13731962';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -1404,6 +1421,49 @@ class _HomePageState extends State<HomeDesktop> {
                                 SizedBox(width: 10,),
                                 Text('Melbourne, Victoria     ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
                               ],
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30,top: 18.0),
+                        child: Container(
+                            child: GestureDetector(
+                              onTap: () {_launchGitHubURL();},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+
+
+
+
+                                      height: 30,
+                                      width: 30,
+
+                                      child: Image.asset('assets/github2.png')),
+                                  SizedBox(width: 5,),
+                                  Text('github.com/LevMartens     ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
+                                ],
+                              ),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 0,top: 18.0),
+                        child: Container(
+                            child: GestureDetector(
+                              onTap: () {_launchStackOFURL();},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+
+                                      height: 30,
+                                      width: 30,
+
+                                      child: Image.asset('assets/stack.png')),
+                                  SizedBox(width: 5,),
+                                  Text('Stackoverflow               ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
+                                ],
+                              ),
                             )),
                       ),
 
