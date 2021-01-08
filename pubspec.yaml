@@ -79,6 +79,9 @@ flutter:
     - assets/github.png
     - assets/github2.png
     - assets/stack.png
+    - assets/face1.jpg
+    - assets/face2.jpg
+    - assets/face3.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
