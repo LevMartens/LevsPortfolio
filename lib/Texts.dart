@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class Texts {
-
+  static final fontSize = 14.0;
   static final aboutMe = 'I’ve started my programming journey early 2020 after becoming curious to see if I could bring my very own app idea to life. It was love at first sight and I haven’t stopped coding since. I recently finished a flutter project and am looking to turn this passion into a job.';
   static final personalLife = 'I’m 26 years of age, and I grew up on the flat lands of The Netherlands. In 2019 I moved to Melbourne Australia where me and my partner are building a life together. ';
   static final workHistory = 'In Holland I used to work as a process technician in hydro-chemical plants. I did this for over 5 years while earning diploma’s in the field. In Australia, I currently work in a plant nursery as a general labourer. For more information on my process technician past please click the LinkedIn link below.';

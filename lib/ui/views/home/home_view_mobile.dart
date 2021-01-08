@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lev_martens/ui/base_widget.dart';
-import 'package:lev_martens/ui/sizing_information.dart';
-import 'package:lev_martens/enums/device_screen_type.dart';
-import 'package:lev_martens/widgets/app_drawer.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:lev_martens/Texts.dart';
+
+
+
 
 
 class HomeMobilePortrait extends StatefulWidget {
@@ -44,6 +44,14 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
   }
   _launchStackOFURL() async {
     const url = 'https://stackoverflow.com/users/13731962';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  _launchLinkedInURL() async {
+    const url = 'https://au.linkedIn.com/in/levmartens';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -218,9 +226,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                       Container(
 
                                         width: 150,
-                                        child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                        child: Text(Texts.aboutMe,
 
-                                          style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                          style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                       ),
                                       SizedBox(height: 25,),
                                       Padding(
@@ -332,9 +340,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                   SizedBox(height: 25,),
                                                   Container(
                                                     width: 300,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.personalLife,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -377,10 +385,21 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                   SizedBox(height: 25,),
                                                   Container(
                                                     width: 300,
-                                                    child: Text('Add linkedin link Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.workHistory,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        _launchLinkedInURL();
+                                                      },
+                                                      child: Container(
+                                                        child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
+                                                      ),
+                                                    ),
+                                                  )
                                                 ],
                                               ),
                                             ),
@@ -422,9 +441,10 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                   Container(
 
                                                     width: 300,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.hobbies
+                                                      ,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -503,9 +523,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                   SizedBox(height: 25,),
                                                   Container(
                                                     width: 150,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.personalLife,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -552,10 +572,21 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                   SizedBox(height: 25,),
                                                   Container(
                                                     width: 150,
-                                                    child: Text('Add linkedin link Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.workHistory,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        _launchLinkedInURL();
+                                                      },
+                                                      child: Container(
+                                                        child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
+                                                      ),
+                                                    ),
+                                                  )
                                                 ],
                                               ),
                                             ),
@@ -593,9 +624,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                   Container(
 
                                                     width: 150,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.hobbies,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -909,9 +940,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot1,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -939,9 +970,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot2,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -980,9 +1011,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot3,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -1010,9 +1041,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot4,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -1087,9 +1118,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
                                                     Container(
                                                       width: 200,
-                                                      child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                      child: Text(Texts.screenshot1,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
                                                   ],
                                                 ),
@@ -1124,9 +1155,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
                                                     Container(
                                                       width: 200,
-                                                      child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                      child: Text(Texts.screenshot2,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
                                                   ],
                                                 ),
@@ -1161,9 +1192,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
                                                     Container(
                                                       width: 200,
-                                                      child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                      child: Text(Texts.screenshot3,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
                                                   ],
                                                 ),
@@ -1198,9 +1229,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
                                                     Container(
                                                       width: 200,
-                                                      child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                      child: Text(Texts.screenshot4,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
                                                   ],
                                                 ),
@@ -1553,6 +1584,14 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
       throw 'Could not launch $url';
     }
   }
+  _launchLinkedInURL() async {
+    const url = 'https://au.linkedIn.com/in/levmartens';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
 
 
@@ -1714,9 +1753,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
                                       SizedBox(height: 25,),
                                       Container(
                                         width: 375,
-                                        child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                        child: Text(Texts.aboutMe,
 
-                                          style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                          style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                       ),
                                       SizedBox(height: 25,),
                                       Padding(
@@ -1877,6 +1916,17 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                       style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
                                                   ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        _launchLinkedInURL();
+                                                      },
+                                                      child: Container(
+                                                        child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
+                                                      ),
+                                                    ),
+                                                  )
                                                 ],
                                               ),
                                             ),
@@ -2051,6 +2101,17 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                       style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
                                                   ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        _launchLinkedInURL();
+                                                      },
+                                                      child: Container(
+                                                        child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
+                                                      ),
+                                                    ),
+                                                  )
                                                 ],
                                               ),
                                             ),

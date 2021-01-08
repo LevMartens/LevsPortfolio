@@ -221,7 +221,7 @@ class _HomePageState extends State<HomeTablet> {
                                         width: 375,
                                         child: Text(Texts.aboutMe,
 
-                                          style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                          style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                       ),
                                       SizedBox(height: 25,),
                                       Padding(
@@ -335,7 +335,7 @@ class _HomePageState extends State<HomeTablet> {
                                                       width: 300,
                                                       child: Text(Texts.personalLife,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
                                                   ],
                                                 ),
@@ -380,14 +380,18 @@ class _HomePageState extends State<HomeTablet> {
                                                       width: 300,
                                                       child: Text(Texts.workHistory,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        _launchLinkedInURL();
-                                                      },
-                                                      child: Container(
-                                                        child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
+
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          _launchLinkedInURL();
+                                                        },
+                                                        child: Container(
+                                                          child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
+                                                        ),
                                                       ),
                                                     )
                                                   ],
@@ -433,7 +437,7 @@ class _HomePageState extends State<HomeTablet> {
                                                       width: 300,
                                                       child: Text(Texts.hobbies,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
                                                   ],
                                                 ),
@@ -513,7 +517,7 @@ class _HomePageState extends State<HomeTablet> {
                                                       width: 300,
                                                       child: Text(Texts.personalLife,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
                                                   ],
                                                 ),
@@ -562,8 +566,19 @@ class _HomePageState extends State<HomeTablet> {
                                                       width: 300,
                                                       child: Text(Texts.workHistory,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          _launchLinkedInURL();
+                                                        },
+                                                        child: Container(
+                                                          child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
+                                                        ),
+                                                      ),
+                                                    )
                                                   ],
                                                 ),
                                               ),
@@ -603,7 +618,7 @@ class _HomePageState extends State<HomeTablet> {
                                                       width: 300,
                                                       child: Text(Texts.hobbies,
 
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
                                                   ],
                                                 ),
@@ -915,7 +930,7 @@ class _HomePageState extends State<HomeTablet> {
                                                     width: 200,
                                                     child: Text(Texts.screenshot1,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -945,7 +960,7 @@ class _HomePageState extends State<HomeTablet> {
                                                     width: 200,
                                                     child: Text(Texts.screenshot2,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -986,7 +1001,7 @@ class _HomePageState extends State<HomeTablet> {
                                                     width: 200,
                                                     child: Text(Texts.screenshot3,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -1016,7 +1031,7 @@ class _HomePageState extends State<HomeTablet> {
                                                     width: 200,
                                                     child: Text(Texts.screenshot4,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -1093,7 +1108,7 @@ class _HomePageState extends State<HomeTablet> {
                                                     width: 200,
                                                     child: Text(Texts.screenshot1,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -1127,7 +1142,7 @@ class _HomePageState extends State<HomeTablet> {
                                                     width: 200,
                                                     child: Text(Texts.screenshot2,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -1163,7 +1178,7 @@ class _HomePageState extends State<HomeTablet> {
                                                     width: 200,
                                                     child: Text(Texts.screenshot3,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -1197,7 +1212,7 @@ class _HomePageState extends State<HomeTablet> {
                                                     width: 200,
                                                     child: Text(Texts.screenshot4,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
