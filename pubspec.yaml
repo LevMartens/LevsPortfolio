@@ -66,8 +66,8 @@ flutter:
     - assets/Ice.jpg
     - assets/background1.png
     - assets/IMG_0888.png
-    - assets/IMG_8484.JPG
-    - assets/IMG_8181.JPG
+    - assets/IMG_8484.jpg
+    - assets/IMG_8181.jpg
     - assets/music.png
     - assets/screenshot1.jpg
     - assets/screenshot2.jpg
@@ -82,6 +82,9 @@ flutter:
     - assets/face1.jpg
     - assets/face2.jpg
     - assets/face3.jpg
+    - assets/music.jpg
+    - assets/IMG_0888.jpg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -57,7 +57,24 @@ class _HomePageState extends State<HomeTablet> {
   }
 
 
-
+@override
+  void didChangeDependencies() {
+  precacheImage(Images.aboutMe, context);
+  precacheImage(Images.firstStackImage, context);
+  precacheImage(Images.lastStackImage, context);
+  precacheImage(Images.personalLife, context);
+  precacheImage(Images.workHistory1, context);
+  precacheImage(Images.workHistory2, context);
+  precacheImage(Images.hobbies, context);
+  precacheImage(Images.testFlightIcon, context);
+  precacheImage(Images.screenshotHomePage, context);
+  precacheImage(Images.screenshot1, context);
+  precacheImage(Images.screenshot2, context);
+  precacheImage(Images.screenshot3, context);
+  precacheImage(Images.screenshot4, context);
+  precacheImage(Images.screenshotComingSoon, context);
+    super.didChangeDependencies();
+  }
 
 
 
@@ -80,7 +97,7 @@ class _HomePageState extends State<HomeTablet> {
         height: screenWidth * 0.5123,
         child: FittedBox(
             fit: BoxFit.fill,
-            child: Image.asset('assets/road.jpg')),
+            child: Image(image: Images.firstStackImage)),
       ),
 
     ];
@@ -91,7 +108,7 @@ class _HomePageState extends State<HomeTablet> {
         height: 300,//screenWidth < 1173 ? 300 + c : 300 -c,//screenWidth * 0.2123,
         child: FittedBox(
             fit: BoxFit.fill,
-            child: Image.asset('assets/background1.png')),
+            child: Image(image: Images.lastStackImage )),
       ),
 
     ];
@@ -104,8 +121,8 @@ class _HomePageState extends State<HomeTablet> {
       if(verossaSelected == false) { return 0;}
     }
     double aboutMeACHeight() {
-      if(aboutMeSelected == true && screenWidth < 1025) { return 830;}
-      if(aboutMeSelected == true && screenWidth > 1025) { return 580;}
+      if(aboutMeSelected == true && screenWidth < 1025) { return 810;}
+      if(aboutMeSelected == true && screenWidth > 1025) { return 610;}
       if(aboutMeSelected == false) { return 0;}
     }
 
@@ -202,7 +219,7 @@ class _HomePageState extends State<HomeTablet> {
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
                                             fit: BoxFit.contain,
-                                            image: AssetImage('assets/face3.jpg')
+                                            image: Images.aboutMe
                                         )
 
                                     ),
@@ -213,7 +230,7 @@ class _HomePageState extends State<HomeTablet> {
                                   child: Column(
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 150.0),
+                                        padding: const EdgeInsets.only(right: 120.0),
                                         child: Text('ABOUT ME', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
                                       ),
                                       SizedBox(height: 25,),
@@ -225,7 +242,7 @@ class _HomePageState extends State<HomeTablet> {
                                       ),
                                       SizedBox(height: 25,),
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 150.0),
+                                        padding: const EdgeInsets.only(right: 120.0),
                                         child: GestureDetector(
                                           onTap: (){
                                             if(aboutMeSelected == false) {
@@ -266,7 +283,6 @@ class _HomePageState extends State<HomeTablet> {
                       ),
                     ),
                   ),
-
 
                   Center(
                     child: AnimatedContainer(
@@ -320,7 +336,7 @@ class _HomePageState extends State<HomeTablet> {
                                                   height: 150,
                                                   width: 110,
 
-                                                  child: Image.asset('assets/IMG_0888.png')),
+                                                  child: Image(image:Images.personalLife)),
                                               SizedBox(width: 20,),
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 0.0),
@@ -356,14 +372,14 @@ class _HomePageState extends State<HomeTablet> {
                                                       height: 110,
                                                       width: 110,
 
-                                                      child: Image.asset('assets/IMG_8484.JPG')),
+                                                      child: Image(image:Images.workHistory1)),
                                                   Container(
 
 
                                                       height: 110,
                                                       width: 110,
 
-                                                      child: Image.asset('assets/IMG_8181.JPG')),
+                                                      child: Image(image:Images.workHistory2)),
                                                 ],
                                               ),
                                               SizedBox(width: 20,),
@@ -420,7 +436,7 @@ class _HomePageState extends State<HomeTablet> {
                                                   height: 200,
                                                   width: 180,
 
-                                                  child: Image.asset('assets/music.png')),
+                                                  child: Image(image:Images.hobbies)),
                                               SizedBox(width: 20,),
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 0.0),
@@ -502,14 +518,14 @@ class _HomePageState extends State<HomeTablet> {
                                                   height: 150,
                                                   width: 110,
 
-                                                  child: Image.asset('assets/IMG_0888.png')),
-                                              SizedBox(width: 50,),
+                                                  child: Image(image: Images.personalLife)),
+                                              SizedBox(width: 70,),
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 0.0),
                                                 child: Column(
                                                   children: [
                                                     Padding(
-                                                      padding: const EdgeInsets.only( right: 150.0),
+                                                      padding: const EdgeInsets.only( right: 190.0),
                                                       child: Text('Personal Life', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
                                                     ),
                                                     SizedBox(height: 25,),
@@ -542,23 +558,23 @@ class _HomePageState extends State<HomeTablet> {
                                                       height: 110,
                                                       width: 110,
 
-                                                      child: Image.asset('assets/IMG_8484.JPG')),
+                                                      child: Image(image: Images.workHistory1)),
                                                   Container(
 
 
                                                       height: 110,
                                                       width: 110,
 
-                                                      child: Image.asset('assets/IMG_8181.JPG')),
+                                                      child: Image(image:Images.workHistory2)),
                                                 ],
                                               ),
-                                              SizedBox(width: 50,),
+                                              SizedBox(width: 70,),
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 0.0),
                                                 child: Column(
                                                   children: [
                                                     Padding(
-                                                      padding: const EdgeInsets.only( right: 150.0),
+                                                      padding: const EdgeInsets.only( right: 190.0),
                                                       child: Text('Work History', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
                                                     ),
                                                     SizedBox(height: 25,),
@@ -569,7 +585,7 @@ class _HomePageState extends State<HomeTablet> {
                                                         style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                     ),
                                                     Padding(
-                                                      padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                      padding: const EdgeInsets.only(top:25.0, right: 220),
                                                       child: GestureDetector(
                                                         onTap: () {
                                                           _launchLinkedInURL();
@@ -601,15 +617,15 @@ class _HomePageState extends State<HomeTablet> {
                                                   height: 200,
                                                   width: 150,
 
-                                                  child: Image.asset('assets/music.png')),
-                                              SizedBox(width: 50,),
+                                                  child: Image(image:Images.hobbies)),
+                                              SizedBox(width: 70,),
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 0.0),
                                                 child: Column(
 
                                                   children: [
                                                     Padding(
-                                                      padding: const EdgeInsets.only( right: 150.0),
+                                                      padding: const EdgeInsets.only( right: 235.0),
                                                       child: Text('Hobbies', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
                                                     ),
                                                     SizedBox(height: 25,),
@@ -669,9 +685,6 @@ class _HomePageState extends State<HomeTablet> {
                             ),
                           ),
                         )),
-
-
-
 
                   Center(
                     child: VisibilityDetector(
@@ -788,7 +801,7 @@ class _HomePageState extends State<HomeTablet> {
                                           height: 40,
                                           width: 40,
 
-                                          child: Image.asset('assets/TestFlight_Icon.png')),
+                                          child: Image(image:Images.testFlightIcon)),
                                       SizedBox(width: 10,),
                                       Container(
                                           child: Text('Available on TestFlight', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
@@ -856,7 +869,7 @@ class _HomePageState extends State<HomeTablet> {
                                       height: 500,
                                       width: 300,
 
-                                      child: Image.asset('assets/HomePageScreen.jpg')),
+                                      child: Image(image:Images.screenshotHomePage)),
                                 ),
 
                               ),
@@ -919,7 +932,7 @@ class _HomePageState extends State<HomeTablet> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot4.jpg')),
+                                                child: Image(image:Images.screenshot1)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -949,7 +962,7 @@ class _HomePageState extends State<HomeTablet> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot3.jpg')),
+                                                child: Image(image:Images.screenshot2)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -990,7 +1003,7 @@ class _HomePageState extends State<HomeTablet> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot5.jpg')),
+                                                child: Image(image:Images.screenshot3)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -1020,7 +1033,7 @@ class _HomePageState extends State<HomeTablet> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot6.jpg')),
+                                                child: Image(image:Images.screenshot4)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -1097,7 +1110,7 @@ class _HomePageState extends State<HomeTablet> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot4.jpg')),
+                                                child: Image(image: Images.screenshot1)),
                                             SizedBox(width: 50,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -1131,7 +1144,7 @@ class _HomePageState extends State<HomeTablet> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot3.jpg')),
+                                                child: Image(image:Images.screenshot2)),
                                             SizedBox(width: 50,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -1167,7 +1180,7 @@ class _HomePageState extends State<HomeTablet> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot5.jpg')),
+                                                child: Image(image:Images.screenshot3)),
                                             SizedBox(width: 50,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -1201,7 +1214,7 @@ class _HomePageState extends State<HomeTablet> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot6.jpg')),
+                                                child: Image(image:Images.screenshot4)),
                                             SizedBox(width: 50,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -1304,7 +1317,7 @@ class _HomePageState extends State<HomeTablet> {
                                       height: 500,
                                       width: 300,
 
-                                      child: Image.asset('assets/CommingSoon.jpg')),
+                                      child: Image(image:Images.screenshotComingSoon ,)),
                                 ),
 
                               ),

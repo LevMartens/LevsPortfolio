@@ -78,7 +78,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
         height: screenWidth * 0.5123,
         child: FittedBox(
             fit: BoxFit.fill,
-            child: Image.asset('assets/road.jpg')),
+            child: Image(image: Images.firstStackImage)),
       ),
 
     ];
@@ -89,7 +89,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
         height: 300,//screenWidth < 1173 ? 300 + c : 300 -c,//screenWidth * 0.2123,
         child: FittedBox(
             fit: BoxFit.fill,
-            child: Image.asset('assets/background1.png')),
+            child: Image(image: Images.lastStackImage)),
       ),
 
     ];
@@ -97,13 +97,13 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
 
     double verossaACHeight() {
-      if(verossaSelected == true && screenWidth < 1025) { return 2810;}
+      if(verossaSelected == true && screenWidth < 1025) { return 3260;}
       if(verossaSelected == true && screenWidth > 1025) { return 1010;}
       if(verossaSelected == false) { return 0;}
     }
     double aboutMeACHeight() {
-      if(aboutMeSelected == true && screenWidth < 1025) { return 1210;}
-      if(aboutMeSelected == true && screenWidth > 1025) { return 580;}
+      if(aboutMeSelected == true && screenWidth < 1025) { return 1070;}
+      if(aboutMeSelected == true && screenWidth > 1025) { return 610;}
       if(aboutMeSelected == false) { return 0;}
     }
 
@@ -205,7 +205,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                             shape: BoxShape.circle,
                                             image: DecorationImage(
                                                 fit: BoxFit.contain,
-                                                image: AssetImage('assets/IMG_1102.jpg')
+                                                image: Images.aboutMe
                                             )
 
                                         ),
@@ -327,7 +327,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 150,
                                                 width: 110,
 
-                                                child: Image.asset('assets/IMG_0888.png')),
+                                                child: Image(image:Images.personalLife)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -363,14 +363,14 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                     height: 110,
                                                     width: 110,
 
-                                                    child: Image.asset('assets/IMG_8484.JPG')),
+                                                    child: Image(image:Images.workHistory1)),
                                                 Container(
 
 
                                                     height: 110,
                                                     width: 110,
 
-                                                    child: Image.asset('assets/IMG_8181.JPG')),
+                                                    child: Image(image:Images.workHistory2)),
                                               ],
                                             ),
                                             SizedBox(width: 20,),
@@ -426,7 +426,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 200,
                                                 width: 180,
 
-                                                child: Image.asset('assets/music.png')),
+                                                child: Image(image:Images.hobbies)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -510,7 +510,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 150,
                                                 width: 110,
 
-                                                child: Image.asset('assets/IMG_0888.png')),
+                                                child: Image(image:Images.personalLife)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -550,14 +550,14 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                     height: 110,
                                                     width: 110,
 
-                                                    child: Image.asset('assets/IMG_8484.JPG')),
+                                                    child: Image(image:Images.workHistory1)),
                                                 Container(
 
 
                                                     height: 110,
                                                     width: 110,
 
-                                                    child: Image.asset('assets/IMG_8181.JPG')),
+                                                    child: Image(image:Images.workHistory2)),
                                               ],
                                             ),
                                             SizedBox(width: 20,),
@@ -577,7 +577,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                       style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                   Padding(
-                                                    padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                    padding: const EdgeInsets.only(top:25.0, right: 70),
                                                     child: GestureDetector(
                                                       onTap: () {
                                                         _launchLinkedInURL();
@@ -609,7 +609,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 200,
                                                 width: 120,
 
-                                                child: Image.asset('assets/music.png')),
+                                                child: Image(image:Images.hobbies)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -677,8 +677,6 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                           ),
                         ),
                       )),
-
-
 
 
                   Center(
@@ -753,7 +751,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                         height: 500,
                                         width: 200,
 
-                                        child: Image.asset('assets/HomePageScreen.jpg')),
+                                        child: Image(image:Images.screenshotHomePage)),
                                   ),
 
                                 ),
@@ -838,7 +836,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                           height: 30,
                                           width: 30,
 
-                                          child: Image.asset('assets/TestFlight_Icon.png')),
+                                          child: Image(image:Images.testFlightIcon)),
                                       SizedBox(width: 10,),
                                       Container(
                                           child: Text('Available on TestFlight', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
@@ -879,6 +877,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
                     ],
                   ),
+
                   Center(
                     child: AnimatedContainer(
                       //color: Colors.white,
@@ -931,7 +930,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot4.jpg')),
+                                                child: Image(image:Images.screenshot1)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -961,7 +960,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot3.jpg')),
+                                                child: Image(image:Images.screenshot2)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -1002,7 +1001,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot5.jpg')),
+                                                child: Image(image:Images.screenshot3)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -1032,7 +1031,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot6.jpg')),
+                                                child: Image(image:Images.screenshot4)),
                                             SizedBox(width: 20,),
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 0.0),
@@ -1109,7 +1108,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot4.jpg')),
+                                                child: Image(image:Images.screenshot1)),
                                               SizedBox(width: 0,),
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 0.0),
@@ -1146,7 +1145,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot3.jpg')),
+                                                child: Image(image:Images.screenshot2)),
                                               SizedBox(width: 0,),
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 0.0),
@@ -1183,7 +1182,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                 height: 490,
                                                 width: 230,
 
-                                                child: Image.asset('assets/screenshot5.jpg')),
+                                                child: Image(image:Images.screenshot3)),
                                               SizedBox(width: 0,),
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 0.0),
@@ -1220,7 +1219,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                                                   height: 490,
                                                   width: 230,
 
-                                                  child: Image.asset('assets/screenshot6.jpg')),
+                                                  child: Image(image:Images.screenshot4)),
                                               SizedBox(width: 0,),
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 0.0),
@@ -1639,7 +1638,7 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
     }
     double aboutMeACHeight() {
       if(aboutMeSelected == true && screenWidth < 1025) { return 830;}
-      if(aboutMeSelected == true && screenWidth > 1025) { return 580;}
+      if(aboutMeSelected == true && screenWidth > 1025) { return 610;}
       if(aboutMeSelected == false) { return 0;}
     }
 
@@ -1736,7 +1735,7 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
                                             fit: BoxFit.contain,
-                                            image: AssetImage('assets/IMG_1102.jpg')
+                                            image:  Images.aboutMe,
                                         )
 
                                     ),
@@ -1867,9 +1866,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
                                                   SizedBox(height: 25,),
                                                   Container(
                                                     width: 300,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.personalLife,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -1912,9 +1911,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
                                                   SizedBox(height: 25,),
                                                   Container(
                                                     width: 300,
-                                                    child: Text('Add linkedin link Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.workHistory,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.only(top:25.0, right: 170),
@@ -1968,9 +1967,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
                                                   Container(
 
                                                     width: 300,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.hobbies,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2048,9 +2047,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
                                                   SizedBox(height: 25,),
                                                   Container(
                                                     width: 300,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.personalLife,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2097,9 +2096,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
                                                   SizedBox(height: 25,),
                                                   Container(
                                                     width: 300,
-                                                    child: Text('Add linkedin link Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.workHistory,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.only(top:25.0, right: 170),
@@ -2149,9 +2148,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
                                                   Container(
 
                                                     width: 300,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.hobbies,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2461,9 +2460,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot1,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2491,9 +2490,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot2,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2532,9 +2531,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot3,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2562,9 +2561,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot4,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2639,9 +2638,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot1,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2673,9 +2672,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot2,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2709,9 +2708,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot3,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
@@ -2743,9 +2742,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
                                                   Container(
                                                     width: 200,
-                                                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida euismod felis, vel ornare purus ultricies eu. Duis vel sagittis ligula. Sed odio est, commodo vel felis eu, sodales bibendum felis. Duis sit amet arcu sed tortor volutpat porta nec non elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor, diam quis ultrices vehicula, turpis orci eleifend orci, ut aliquet ',
+                                                    child: Text(Texts.screenshot4,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
+                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
