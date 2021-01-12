@@ -1613,7 +1613,7 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
         height: screenWidth * 0.5123,
         child: FittedBox(
             fit: BoxFit.fill,
-            child: Image.asset('assets/road.jpg')),
+            child: Image(image: Images.firstStackImage )),
       ),
 
     ];
@@ -1624,7 +1624,7 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
         height: 300,//screenWidth < 1173 ? 300 + c : 300 -c,//screenWidth * 0.2123,
         child: FittedBox(
             fit: BoxFit.fill,
-            child: Image.asset('assets/background1.png')),
+            child: Image(image: Images.lastStackImage )),
       ),
 
     ];
