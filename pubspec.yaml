@@ -31,6 +31,7 @@ dependencies:
   animate_do: ^1.7.5
   visibility_detector: ^0.1.5
   url_launcher: ^5.7.10
+  google_fonts: ^1.1.2
   # device_preview: ^0.5.5
 
 dev_dependencies:
@@ -50,25 +51,28 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   fonts:
+
     - family: Cormorant
       fonts:
         - asset: fonts/Cormorant-Medium.ttf
 
+
+
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/lev_martens_master.jpg
+    - assets/AppleAvailable.png
     - assets/LevHeader.jpg
     - assets/road.jpg
     - assets/IMG_1102.jpg
     - assets/screenshot-3.jpg
     - assets/CommingSoon.jpg
     - assets/HomePageScreen.jpg
-    - assets/Ice.jpg
+    - assets/VocabexLogo.png
     - assets/background1.png
     - assets/IMG_0888.png
     - assets/IMG_8484.jpg
     - assets/IMG_8181.jpg
-    - assets/music.png
+    - assets/vocabexSS1.png
     - assets/screenshot1.jpg
     - assets/screenshot2.jpg
     - assets/screenshot3.jpg
@@ -84,6 +88,14 @@ flutter:
     - assets/face3.jpg
     - assets/music.jpg
     - assets/IMG_0888.jpg
+    - assets/testFlightRound.png
+    - assets/verossaLogo.png
+    - assets/vocabexSS2.png
+    - assets/javaSS1.jpg
+    - assets/javaSS2.jpg
+    - assets/javaSS3.jpg
+    - assets/javaLogo.png
+    - assets/googlePlayIcon.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
