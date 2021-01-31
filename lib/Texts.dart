@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Texts {
   static final fontSize = 15.0;
+  static final javaDescription = 'A small test to build your java knowledge';
   static final verossaDescription = 'Fully fledged webshop (demo) app';
   static final vocabexDescription = 'Vocabex is a page scanner and word filter that assists in expanding your English vocabulary';
   static final aboutMe = 'I started my programming journey in early 2020 after becoming curious to see if I could bring my very own app idea to life. It was love at first sight and I haven’t stopped coding since. I recently finished a flutter project and am looking to turn this passion into a job.';
@@ -35,6 +36,7 @@ class Images {
   static final vocabexSS1 = AssetImage('assets/VocabexSS1.png');
   static final vocabexSS2 = AssetImage('assets/VocabexSS2.png');
   static final availableOnAppStore = AssetImage('assets/AppleAvailable.png');
+  static final availableOnGooglePlay = AssetImage('assets/googlePlayIcon.png');
   static final verossaLogo = AssetImage('assets/verossaLogo.png');
   static final javaSS1 = AssetImage('assets/javaSS1.jpg');
   static final javaLogo = AssetImage('assets/javaLogo.png');

@@ -1998,7 +1998,7 @@ class _HomePageState extends State<HomeTablet> {
                                           SizedBox(height: 10,),
                                           Container(
 
-                                              child: Text(Texts.verossaDescription, style: WordStyle.general,)),
+                                              child: Text(Texts.javaDescription, style: WordStyle.general,)),
                                           SizedBox(height: 60,),
                                           Container(
                                             child: Text('Technologies', style: WordStyle.technologies),),
@@ -2008,65 +2008,27 @@ class _HomePageState extends State<HomeTablet> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  child: Text('Flutter', style: WordStyle.general),),
+                                                  child: Text('Android Studio', style: WordStyle.general),),
                                                 Container(
-                                                    child: Text('Android Studio', style: WordStyle.general)),
+                                                    child: Text('Observer Pattern', style: WordStyle.general)),
                                                 Container(
                                                     child: Text('Firebase', style: WordStyle.general)),
                                                 Container(
                                                     child: Text('Git', style: WordStyle.general)),
 
                                               ],),
-                                            SizedBox(width: 20,),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                    child: Text('Stripe Payments', style: WordStyle.general)),
-                                                Container(
-                                                    child: Text('SendGrid Email', style: WordStyle.general)),
-                                                Container(
-                                                    child: Text('Provider', style: WordStyle.general)),
 
-                                              ],)
                                           ],),
                                           SizedBox(height: 20,),
 
-                                          Row(
-                                            children: [
-                                              Container(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: Image(image: Images.testFlightIcon, )),
-                                              SizedBox(width:10),
-                                              Container(child: Text('Available on TestFlight', style: WordStyle.general)),
-                                            ],
-                                          ),
+                                          Container(
+                                              height: 50,
+                                              width: 150,
+
+                                              child: Image(image: Images.availableOnGooglePlay, )),
 
 
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 25.0, top: 10),
-                                            child: GestureDetector(
-                                              onTap: (){
-                                                if(verossaSelected == false) {
-                                                  setState(() {
-                                                    verossaSelected = true;
-                                                  });
-                                                } else {
-                                                  setState(() {
-                                                    verossaSelected = false;
-                                                  });
-                                                }
-                                              },
-                                              child: Container(
-                                                  margin: const EdgeInsets.all(15.0),
-                                                  padding: const EdgeInsets.all(3.0),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(color: Colors.black26)
-                                                  ),
-                                                  child: Text('More info', style:  WordStyle.more)),
-                                            ),
-                                          ),
+                                          
 
                                         ],
                                       ),
