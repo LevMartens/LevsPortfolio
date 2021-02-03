@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Texts {
   static final fontSize = 15.0;
+  static final vocabexSS2 = 'The words that will be filtered out are stored in Firebase FireStore and fetched on startup. The words that will be filtered are: the 5000 most common used words, 4000 common names, numbers, and close to 20.000 word forms derived from the 5000 most common words. After the scan completes, the words are presented and the user can choose to save the word, the words get saved in CoreData.';
+  static final vocabexSS3 = 'Vocabex allows you to scan any page and filter out all the common used English words. The scanner part is apples vision framework. Whenever a scan is made vision will read the page from the scan/photograph, then the page will be filtered through and you\'ll be left with the uncommon words that you can save in the app and study.   ';
+  static final vocabexSS4 = 'I am working on incorporating added features including: word definitions, word difficulty levels, notes and word favoriting, a personalised filter as well as a personalised English level tracker. ';
   static final javaDescription = 'A small test to build your java knowledge';
   static final verossaDescription = 'Fully fledged webshop (demo) app';
   static final vocabexDescription = 'Vocabex is a page scanner and word filter that assists in expanding your English vocabulary';
@@ -40,6 +43,8 @@ class Images {
   static final verossaLogo = AssetImage('assets/verossaLogo.png');
   static final javaSS1 = AssetImage('assets/javaSS1.jpg');
   static final javaLogo = AssetImage('assets/javaLogo.png');
+  static final vocabexSS3 = AssetImage('assets/vocabexSS3.png');
+  static final vocabexSS4 = AssetImage('assets/vocabexSS4.png');
 
 }
 

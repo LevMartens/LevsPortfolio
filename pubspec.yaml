@@ -96,7 +96,8 @@ flutter:
     - assets/javaSS3.jpg
     - assets/javaLogo.png
     - assets/googlePlayIcon.png
-
+    - assets/vocabexSS3.png
+    - assets/vocabexSS4.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
