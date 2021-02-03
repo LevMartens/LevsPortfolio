@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
+bool onMobile = false;
+
 class Texts {
   static final fontSize = 15.0;
   static final vocabexSS2 = 'The words that will be filtered out are stored in Firebase FireStore and fetched on startup. The words that will be filtered are: the 5000 most common used words, 4000 common names, numbers, and close to 20.000 word forms derived from the 5000 most common words. After the scan completes, the words are presented and the user can choose to save the word, the words get saved in CoreData.';
@@ -49,21 +51,21 @@ class Images {
 }
 
 class WordStyle {
-  static final header = GoogleFonts.josefinSans(fontSize: 55,
+  static final header = GoogleFonts.josefinSans(fontSize: onMobile == false ? 55 : 40,
       fontWeight: FontWeight.w500, color: Colors.white);
-  static final headerSecond = GoogleFonts.montserrat(fontSize: 14,
+  static final headerSecond = GoogleFonts.montserrat(fontSize: onMobile == false ? 14 : 12,
       fontWeight: FontWeight.w300, color: Colors.white);
   static final style15_300 = GoogleFonts.josefinSans(fontSize: 15,
       fontWeight: FontWeight.w500, color: Colors.white);
-  static final style20_300 =  GoogleFonts.josefinSans(fontSize: 20,
+  static final style20_300 =  GoogleFonts.josefinSans(fontSize:  20,
       fontWeight: FontWeight.w500, color: Colors.black);
-  static final aboutMe = GoogleFonts.josefinSans(height: 1.5, fontSize: 15,
+  static final aboutMe = GoogleFonts.josefinSans(height: 1.5, fontSize:  14,
       fontWeight: FontWeight.w600, color: Colors.black);
-  static final general = GoogleFonts.montserrat(height: 1.5, fontSize: 14,
+  static final general = GoogleFonts.montserrat(height: 1.5, fontSize:  14 ,
       fontWeight: FontWeight.w300, color: Colors.black);
   static final more = GoogleFonts.montserrat(fontSize: 13,
       fontWeight: FontWeight.w300, color: Colors.black);
-  static final portfolio = GoogleFonts.josefinSans(fontSize: 45,
+  static final portfolio = GoogleFonts.josefinSans(fontSize: onMobile == false ? 45 : 35,
       fontWeight: FontWeight.w500, color: Colors.black);
   static final linkedIn = GoogleFonts.josefinSans(decoration: TextDecoration.underline, fontSize: 14,
       fontWeight: FontWeight.w500, color: Colors.black);

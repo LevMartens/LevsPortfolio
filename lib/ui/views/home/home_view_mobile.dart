@@ -8,21 +8,24 @@ import 'package:lev_martens/Texts.dart';
 
 
 
-class HomeMobilePortrait extends StatefulWidget {
 
-  HomeMobilePortrait({
+
+class HomeMobileLandscape extends StatefulWidget {
+
+  HomeMobileLandscape({
     Key key,
   }) : super(key: key);
 
 
 
   @override
-  State<StatefulWidget> createState() => _HomePageStatePortrait();
+  State<StatefulWidget> createState() => _HomePageStateL();
 }
 
-class _HomePageStatePortrait extends State<HomeMobilePortrait> {
+class _HomePageStateL extends State<HomeMobileLandscape> {
   bool aboutMeSelected = false;
   bool verossaSelected = false;
+  bool vocabexSelected = false;
   final _scrollController = ScrollController(keepScrollOffset: false);
   AnimationController animationControllerForTest;
   AnimationController animationControllerForAboutMe;
@@ -33,7 +36,11 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
   AnimationController animationControllerForTTitle;
   AnimationController animationControllerForMoreAbout;
   AnimationController animationControllerForMoreVerossa;
-
+  AnimationController animationControllerForMoreVocabex;
+  AnimationController animationControllerForVocabex;
+  AnimationController animationControllerForVocabexPhone;
+  AnimationController animationControllerForJava;
+  AnimationController animationControllerForJavaPhone;
   _launchGitHubURL() async {
     const url = 'https://github.com/LevMartens';
     if (await canLaunch(url)) {
@@ -58,10 +65,40 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
       throw 'Could not launch $url';
     }
   }
+  _launchJavaQuiz() async {
+    const url = 'https://play.google.com/store/apps/details?id=com.levmartens.melbournequizzapp';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(Images.aboutMe, context);
+    precacheImage(Images.firstStackImage, context);
+    precacheImage(Images.lastStackImage, context);
+    precacheImage(Images.personalLife, context);
+    precacheImage(Images.workHistory1, context);
+    precacheImage(Images.workHistory2, context);
+    precacheImage(Images.hobbies, context);
+    precacheImage(Images.testFlightIcon, context);
+    precacheImage(Images.screenshotHomePage, context);
+    precacheImage(Images.screenshot1, context);
+    precacheImage(Images.screenshot2, context);
+    precacheImage(Images.screenshot3, context);
+    precacheImage(Images.screenshot4, context);
+    precacheImage(Images.screenshotComingSoon, context);
+    super.didChangeDependencies();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-
+    onMobile = true;
     bool startAnimation = false;
     var orientation = MediaQuery.of(context).orientation;
     var screenHeight = MediaQuery.of(context).size.height;
@@ -89,7 +126,7 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
         height: 300,//screenWidth < 1173 ? 300 + c : 300 -c,//screenWidth * 0.2123,
         child: FittedBox(
             fit: BoxFit.fill,
-            child: Image(image: Images.lastStackImage)),
+            child: Image(image: Images.lastStackImage )),
       ),
 
     ];
@@ -97,24 +134,53 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
 
     double verossaACHeight() {
-      if(verossaSelected == true && screenWidth < 1025) { return 3260;}
+      if(verossaSelected == true && screenWidth < 1025) { return 3413;}
       if(verossaSelected == true && screenWidth > 1025) { return 1010;}
       if(verossaSelected == false) { return 0;}
     }
+    double vocabexACHeight() {
+      if(vocabexSelected == true && screenWidth < 1025) { return 2273;}
+      if(vocabexSelected == true && screenWidth > 1025) { return 1010;}
+      if(vocabexSelected == false) { return 0;}
+    }
     double aboutMeACHeight() {
-      if(aboutMeSelected == true && screenWidth < 1025) { return 1070;}
+      if(aboutMeSelected == true && screenWidth < 1025) { return 1494;}
       if(aboutMeSelected == true && screenWidth > 1025) { return 610;}
       if(aboutMeSelected == false) { return 0;}
     }
+
+    double totalACHeightAbove1025() {
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == false) { return 2397;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == true) { return 5027;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == false) { return 3007;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == false) { return 5282;}
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == true) { return 3407;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == false) { return 4017;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == true) { return 4017;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == true) { return 4417;}
+
+    }
+    double totalACHeightBelow1025() {
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == false) { return 3877;}//396
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == true) { return 11057;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == false) { return 5371;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == false) { return 6150;}
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == true) { return 7290;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == false) { return 7644;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == true) { return 8784;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == true) { return 9563;}
+
+    }
+
+
 
 
     return Scaffold(
 
       body: Container(
-        height: 2400,
+        height: 3000,
         color: Colors.white,
-        child: SingleChildScrollView(
-          child: Column(
+        child: Stack(
             children: [
               Stack(children: [
                 Container(
@@ -142,9 +208,9 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
                   child: Center(child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('HELLO. WORLD.',style: TextStyle(color: Color(0xFFf4f4f4), fontSize: 12, fontWeight: FontWeight.w500),),
-                      Text('I\'m Lev Martens.',style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 30, fontWeight: FontWeight.w500),),
-                      Text('Website / App Developer',style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),),
+
+                      Text('Lev Martens.',style: WordStyle.header),
+                      Text('Swift, Java and Flutter Enthusiast ',style: WordStyle.headerSecond),
                     ],
                   )),),
 
@@ -153,1409 +219,2005 @@ class _HomePageStatePortrait extends State<HomeMobilePortrait> {
 
 
               ]),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
 
-                  SizedBox(height: 60,),
-                  Center(
-                    child: VisibilityDetector(
-
-                      key: Key('About Me'),
-
-                      onVisibilityChanged: (visibilityInfo) {
-                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                        debugPrint(
-                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                        if(visiblePercentage > 10) {
-                          print('>10');
-                          animationControllerForAboutMe.forward();
-                        }
-                        if(visiblePercentage == 0) {
-                          print('<50');
-                          animationControllerForAboutMe.reverse();
-                        }
-
-                      },
-                      child: FadeIn(
-                        duration: Duration(milliseconds: 1000),
-                        manualTrigger: true,
-                        animate: false,
-                        controller: ( controller ) => animationControllerForAboutMe = controller,
-
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 0.0),
-                          child: Container(
-                            height: 410,
-                            width: 400,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 90.0),
-                                      child: Container(
-
-                                        height: 100,
-                                        width: 100,
-
-                                        decoration: BoxDecoration(
-
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                                fit: BoxFit.contain,
-                                                image: Images.aboutMe
-                                            )
-
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(right: 95.0),
-                                        child: Text('ABOUT ME', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 15, fontWeight: FontWeight.w900),),
-                                      ),
-                                      SizedBox(height: 25,),
-                                      Container(
-
-                                        width: 150,
-                                        child: Text(Texts.aboutMe,
-
-                                          style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                      ),
-                                      SizedBox(height: 25,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(right: 95.0),
-                                        child: GestureDetector(
-                                          onTap: (){
-                                            if(aboutMeSelected == false) {
-                                              setState(() {
-                                                aboutMeSelected = true;
-                                              });
-                                            } else {
-
-
-
-                                              setState(() {
-                                                aboutMeSelected = false;
-                                              });
-
-
-                                            }
-                                          },
-                                          child: Container(
-                                              margin: const EdgeInsets.all(0.0),
-                                              padding: const EdgeInsets.all(3.0),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(color: Colors.black26)
-                                              ),
-                                              child: Text('More about me', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 50,),
-
-
-
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      width: screenWidth,
+                      height: screenWidth * 0.5123,
+                      color: Colors.transparent,
                     ),
-                  ),
+                    Container(
+                      height: totalACHeightBelow1025(),
+                      color: Colors.white,
+                      child: Column(
+                        children: [
 
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
 
-                  Center(
-                      child: AnimatedContainer(
-                        //color: Colors.black12,
-                        decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
+                              SizedBox(height: 100,),
+                              Center(
+                                child: VisibilityDetector(
 
+                                  key: Key('About Me'),
 
+                                  onVisibilityChanged: (visibilityInfo) {
+                                    var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                    debugPrint(
+                                        'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                    if(visiblePercentage > 10) {
+                                      print('>10');
+                                      animationControllerForAboutMe.forward();
+                                    }
+                                    if(visiblePercentage == 0) {
+                                      print('<50');
+                                      animationControllerForAboutMe.reverse();
+                                    }
 
-                        height: aboutMeACHeight(),
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.ease,
-                        child: VisibilityDetector(
+                                  },
+                                  child: FadeIn(
+                                    duration: Duration(milliseconds: 1000),
+                                    manualTrigger: true,
+                                    animate: false,
+                                    controller: ( controller ) => animationControllerForAboutMe = controller,
 
-                          key: Key('MoreAbout'),
-
-                          onVisibilityChanged: (visibilityInfo) {
-                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                            debugPrint(
-                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                            if(visiblePercentage > 10) {
-                              print('>10');
-                              animationControllerForMoreAbout.forward();
-                            }
-                            if(visiblePercentage == 0) {
-                              print('<50');
-                              animationControllerForMoreAbout.reverse();
-                            }
-
-                          },
-                          child: FadeIn(
-                            duration: Duration(milliseconds: 700),
-                            manualTrigger: true,
-                            animate: false,
-                            controller: ( controller ) => animationControllerForMoreAbout = controller,
-
-                            child: screenWidth > 1025 ? Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: aboutMeSelected == true ? Column(
-
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 50),
-                                        child: Row(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 0.0),
+                                      child: Container(
+                                        height: 543,
+                                        width: 600,
+                                        child: Column(
                                           children: [
-
-                                            Container(
-
-                                                height: 150,
-                                                width: 110,
-
-                                                child: Image(image:Images.personalLife)),
-                                            SizedBox(width: 20,),
                                             Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 150.0),
-                                                    child: Text('Personal Life', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-                                                    width: 300,
-                                                    child: Text(Texts.personalLife,
+                                              padding: const EdgeInsets.only(bottom: 30.0),
+                                              child: Container(
+                                                height: 150,
+                                                width: 150,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                        fit: BoxFit.contain,
+                                                        image: Images.aboutMe
+                                                    )
+
+                                                ),
                                               ),
                                             ),
-
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(width: 20,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 40, top: 50),
-                                        child: Row(
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Container(
-
-                                                    height: 110,
-                                                    width: 110,
-
-                                                    child: Image(image:Images.workHistory1)),
-                                                Container(
-
-
-                                                    height: 110,
-                                                    width: 110,
-
-                                                    child: Image(image:Images.workHistory2)),
-                                              ],
-                                            ),
-                                            SizedBox(width: 20,),
                                             Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
+                                              padding: const EdgeInsets.only(left: 20.0),
                                               child: Column(
                                                 children: [
                                                   Padding(
-                                                    padding: const EdgeInsets.only( right: 150.0),
-                                                    child: Text('Work History', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
+                                                    padding: const EdgeInsets.only(right: 20.0),
+                                                    child: Text('ABOUT ME', style: WordStyle.style20_300),
                                                   ),
                                                   SizedBox(height: 25,),
                                                   Container(
-                                                    width: 300,
-                                                    child: Text(Texts.workHistory,
+                                                    width: 220,
+                                                    child: Text(Texts.aboutMe,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
+                                                        style: WordStyle.general),
                                                   ),
+                                                  SizedBox(height: 25,),
                                                   Padding(
-                                                    padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                    padding: const EdgeInsets.only(right: 20.0),
                                                     child: GestureDetector(
-                                                      onTap: () {
-                                                        _launchLinkedInURL();
+                                                      onTap: (){
+                                                        if(aboutMeSelected == false) {
+                                                          setState(() {
+                                                            aboutMeSelected = true;
+                                                          });
+                                                        } else {
+
+
+
+                                                          setState(() {
+                                                            aboutMeSelected = false;
+                                                          });
+
+
+                                                        }
                                                       },
                                                       child: Container(
-                                                        child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
-                                                      ),
+                                                          margin: const EdgeInsets.all(15.0),
+                                                          padding: const EdgeInsets.all(3.0),
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(color: Colors.black26)
+                                                          ),
+                                                          child: Text('More about me', style: WordStyle.more)),
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-
-
-
-
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top:30),
-                                        child: Row(
-                                          children: [
-
-                                            Container(
-
-                                                height: 200,
-                                                width: 180,
-
-                                                child: Image(image:Images.hobbies)),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 150.0),
-                                                    child: Text('Hobbies', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-
-                                                    width: 300,
-                                                    child: Text(Texts.hobbies
-                                                      ,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
                                                   ),
                                                 ],
                                               ),
                                             ),
-
+                                            SizedBox(height: 50,),
                                           ],
                                         ),
-                                      ),
-
-
-
-
-
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(aboutMeSelected == false) {
-                                        setState(() {
-                                          aboutMeSelected = true;
-                                        });
-                                      } else {
-
-
-
-                                        setState(() {
-                                          aboutMeSelected = false;
-                                        });
-
-
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 50.0),
-                                      child: Container(
-                                        //margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(0.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
-                                        ),
-                                        child: Icon(Icons.arrow_drop_up_sharp),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ) : Container(),
-                            ) : Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: aboutMeSelected == true ? Column(
-
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 50, right: 30),
-                                        child: Row(
-                                          children: [
-
-                                            Container(
-
-
-                                                height: 150,
-                                                width: 110,
-
-                                                child: Image(image:Images.personalLife)),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 50.0),
-                                                    child: Text('Personal Life', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-                                                    width: 150,
-                                                    child: Text(Texts.personalLife,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 0, top: 50, right: 30),
-                                        child: Row(
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Container(
-
-                                                    height: 110,
-                                                    width: 110,
-
-                                                    child: Image(image:Images.workHistory1)),
-                                                Container(
-
-
-                                                    height: 110,
-                                                    width: 110,
-
-                                                    child: Image(image:Images.workHistory2)),
-                                              ],
-                                            ),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 50.0),
-                                                    child: Text('Work History', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-                                                    width: 150,
-                                                    child: Text(Texts.workHistory,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(top:25.0, right: 70),
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        _launchLinkedInURL();
-                                                      },
-                                                      child: Container(
-                                                        child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top:50, right: 60),
-                                        child: Row(
-                                          children: [
-
-                                            Container(
-
-                                                height: 200,
-                                                width: 120,
-
-                                                child: Image(image:Images.hobbies)),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 90.0),
-                                                    child: Text('Hobbies', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-
-                                                    width: 150,
-                                                    child: Text(Texts.hobbies,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-
-
-
-
-
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(aboutMeSelected == false) {
-                                        setState(() {
-                                          aboutMeSelected = true;
-                                        });
-                                      } else {
-
-
-
-                                        setState(() {
-                                          aboutMeSelected = false;
-                                        });
-
-
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 50.0),
-                                      child: Container(
-                                        //margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(0.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
-                                        ),
-                                        child: Icon(Icons.arrow_drop_up_sharp),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ) : Container(),
-                            ),
-                          ),
-                        ),
-                      )),
-
-
-                  Center(
-                    child: VisibilityDetector(
-
-                      key: Key('Portfolio'),
-
-                      onVisibilityChanged: (visibilityInfo) {
-                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                        debugPrint(
-                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                        if(visiblePercentage > 10) {
-                          print('>10');
-                          animationControllerForPortfolio.forward();
-                        }
-                        if(visiblePercentage == 0) {
-                          print('<50');
-                          animationControllerForPortfolio.reverse();
-                        }
-
-                      },
-                      child: FadeIn(
-                        duration: Duration(milliseconds: 1000),
-                        manualTrigger: true,
-                        animate: false,
-                        controller: ( controller ) => animationControllerForPortfolio = controller,
-
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 60.0),
-                          child: Text('PORTFOLIO', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 35, fontWeight: FontWeight.w500),),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(children: [
-                        Row(
-                          children: [
-                            Center(
-                              child: VisibilityDetector(
-
-                                key: Key('Phone'),
-
-                                onVisibilityChanged: (visibilityInfo) {
-                                  var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                                  debugPrint(
-                                      'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                                  if(visiblePercentage > 10) {
-                                    print('>10');
-                                    animationControllerForPhone.forward();
-                                  }
-                                  if(visiblePercentage == 0) {
-                                    print('<50');
-                                    animationControllerForPhone.reverse();
-                                  }
-
-                                },
-                                child: FadeIn(
-                                  duration: Duration(milliseconds: 1000),
-                                  manualTrigger: true,
-                                  animate: false,
-                                  controller: ( controller ) => animationControllerForPhone = controller,
-
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 0),
-                                    child: Container(
-
-                                        height: 500,
-                                        width: 200,
-
-                                        child: Image(image:Images.screenshotHomePage)),
-                                  ),
-
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Center(
-                        child: VisibilityDetector(
+                              Center(
+                                  child: AnimatedContainer(
+                                    //color: Colors.black12,
+                                    decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
 
-                          key: Key('VTitle'),
 
-                          onVisibilityChanged: (visibilityInfo) {
-                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                            debugPrint(
-                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                            if(visiblePercentage > 10) {
-                              print('>10');
-                              animationControllerForVTitle.forward();
-                            }
-                            if(visiblePercentage == 0) {
-                              print('<50');
-                              animationControllerForVTitle.reverse();
-                            }
 
-                          },
-                          child: FadeIn(
-                            duration: Duration(milliseconds: 1000),
-                            manualTrigger: true,
-                            animate: false,
-                            controller: ( controller ) => animationControllerForVTitle = controller,
+                                    height: aboutMeACHeight(),
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                    child: VisibilityDetector(
 
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                      key: Key('MoreAbout'),
+
+                                      onVisibilityChanged: (visibilityInfo) {
+                                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                        debugPrint(
+                                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                        if(visiblePercentage > 10) {
+                                          print('>10');
+                                          animationControllerForMoreAbout.forward();
+                                        }
+                                        if(visiblePercentage == 0) {
+                                          print('<50');
+                                          animationControllerForMoreAbout.reverse();
+                                        }
+
+                                      },
+                                      child: FadeIn(
+                                        duration: Duration(milliseconds: 700),
+                                        manualTrigger: true,
+                                        animate: false,
+                                        controller: ( controller ) => animationControllerForMoreAbout = controller,
+
+                                        child: screenWidth > 1025 ? Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: aboutMeSelected == true ? Column(
+
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 50),
+                                                    child: Row(
+                                                      children: [
+
+                                                        Container(
+
+                                                            height: 150,
+                                                            width: 110,
+
+                                                            child: Image(image:Images.personalLife)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 150.0),
+                                                                child: Text('Personal Life', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+                                                                width: 300,
+                                                                child: Text(Texts.personalLife,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 20,),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 40, top: 50),
+                                                    child: Row(
+                                                      children: [
+                                                        Column(
+                                                          children: [
+                                                            Container(
+
+                                                                height: 110,
+                                                                width: 110,
+
+                                                                child: Image(image:Images.workHistory1)),
+                                                            Container(
+
+
+                                                                height: 110,
+                                                                width: 110,
+
+                                                                child: Image(image:Images.workHistory2)),
+                                                          ],
+                                                        ),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 150.0),
+                                                                child: Text('Work History', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+                                                                width: 300,
+                                                                child: Text(Texts.workHistory,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                                child: GestureDetector(
+                                                                  onTap: () {
+                                                                    _launchLinkedInURL();
+                                                                  },
+                                                                  child: Container(
+                                                                    child: Text('LinkedIn Page', style: WordStyle.linkedIn),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+
+
+
+
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top:30),
+                                                    child: Row(
+                                                      children: [
+
+                                                        Container(
+
+
+                                                            height: 200,
+                                                            width: 180,
+
+
+                                                            child: Image(image:Images.hobbies)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 150.0),
+                                                                child: Text('Hobbies', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+
+                                                                width: 300,
+                                                                child: Text(Texts.hobbies,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+
+
+
+
+
+                                                ],
+                                              ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(aboutMeSelected == false) {
+                                                    setState(() {
+                                                      aboutMeSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      aboutMeSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 50.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ) : Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: aboutMeSelected == true ? Column(
+
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 50),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 150,
+                                                            width: 110,
+
+                                                            child: Image(image: Images.personalLife)),
+                                                        SizedBox(height: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 0.0),
+                                                                child: Text('Personal Life', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+                                                                width: 220,
+                                                                child: Text(Texts.personalLife,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 0, top: 50),
+                                                    child: Column(
+                                                      children: [
+                                                        Column(
+                                                          children: [
+                                                            Container(
+
+                                                                height: 110,
+                                                                width: 110,
+
+                                                                child: Image(image: Images.workHistory1)),
+                                                            Container(
+
+
+                                                                height: 110,
+                                                                width: 110,
+
+                                                                child: Image(image:Images.workHistory2)),
+                                                          ],
+                                                        ),
+                                                        SizedBox(height: 30,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 0.0),
+                                                                child: Text('Work History', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+                                                                width: 220,
+                                                                child: Text(Texts.workHistory,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(top:25.0, right: 0),
+                                                                child: GestureDetector(
+                                                                  onTap: () {
+                                                                    _launchLinkedInURL();
+                                                                  },
+                                                                  child: Container(
+                                                                    child: Text('LinkedIn Page', style: WordStyle.linkedIn),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top:30, right: 40),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 200,
+                                                            width: 150,
+
+                                                            child: Image(image:Images.hobbies)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 0.0),
+                                                                child: Text('Hobbies', style:  WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+
+                                                                width: 220,
+                                                                child: Text(Texts.hobbies,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+
+
+
+
+
+                                                ],
+                                              ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(aboutMeSelected == false) {
+                                                    setState(() {
+                                                      aboutMeSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      aboutMeSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 50.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ),
+                                      ),
+                                    ),
+                                  )),
+
+                              Center(
+                                child: VisibilityDetector(
+
+                                  key: Key('Portfolio'),
+
+                                  onVisibilityChanged: (visibilityInfo) {
+                                    var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                    debugPrint(
+                                        'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                    if(visiblePercentage > 10) {
+                                      print('>10');
+                                      animationControllerForPortfolio.forward();
+                                    }
+                                    if(visiblePercentage == 0) {
+                                      print('<50');
+                                      animationControllerForPortfolio.reverse();
+                                    }
+
+                                  },
+                                  child: FadeIn(
+                                    duration: Duration(milliseconds: 1000),
+                                    manualTrigger: true,
+                                    animate: false,
+                                    controller: ( controller ) => animationControllerForPortfolio = controller,
+
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 60.0),
+                                      child: Text('PORTFOLIO', style: WordStyle.portfolio),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              //Vocabex
+                              SizedBox(height: 20,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                      child: Text('Verossa Valley', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 30, fontWeight: FontWeight.w500),)),
-                                  SizedBox(height: 10,),
-                                  Container(
-                                      child: Text('Fully fledged webshop demo app', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                  SizedBox(height: 40,),
-                                  Container(
-                                      child: Text('Technologies', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black54, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                  SizedBox(height: 10,),
-                                  Row(children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            child: Text('Flutter', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Android Studio', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Firebase', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Git', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
+                                  Column(
 
-                                      ],),
-                                    SizedBox(width: 20,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            child: Text('Stripe Payments', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('SendGrid Email', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Provider', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                      ],)
-                                  ],),
-                                  SizedBox(height: 20,),
-                                  Row(
                                     children: [
-                                      Container(
+                                      Row(
+                                        children: [
+                                          Center(
+                                            child: VisibilityDetector(
 
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                              key: Key('VocabexPhone'),
+
+                                              onVisibilityChanged: (visibilityInfo) {
+                                                var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                                debugPrint(
+                                                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                                if(visiblePercentage > 10) {
+                                                  print('>10');
+                                                  animationControllerForVocabexPhone.forward();
+                                                }
+                                                if(visiblePercentage == 0) {
+                                                  print('<50');
+                                                  animationControllerForVocabexPhone.reverse();
+                                                }
+
+                                              },
+                                              child: FadeIn(
+                                                duration: Duration(milliseconds: 1000),
+                                                manualTrigger: true,
+                                                animate: false,
+                                                controller: ( controller ) => animationControllerForVocabexPhone = controller,
+
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(left: screenWidth > 726 ? 70.0 : 0),
+                                                  child: Container(
+
+                                                      height: 500,
+                                                      width: 300,
+
+                                                      child: Image(image:Images.vocabexSS2)),
+                                                ),
+
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                      Center(
+                                        child: VisibilityDetector(
 
-                                          height: 30,
-                                          width: 30,
+                                          key: Key('VocabexTitle'),
 
-                                          child: Image(image:Images.testFlightIcon)),
-                                      SizedBox(width: 10,),
-                                      Container(
-                                          child: Text('Available on TestFlight', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
+                                          onVisibilityChanged: (visibilityInfo) {
+                                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                            debugPrint(
+                                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                            if(visiblePercentage > 10) {
+                                              print('>10');
+                                              animationControllerForVocabex.forward();
+                                            }
+                                            if(visiblePercentage == 0) {
+                                              print('<50');
+                                              animationControllerForVocabex.reverse();
+                                            }
+
+                                          },
+                                          child: FadeIn(
+                                            duration: Duration(milliseconds: 1000),
+                                            manualTrigger: true,
+                                            animate: false,
+                                            controller: ( controller ) => animationControllerForVocabex = controller,
+
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                          height: 75,
+                                                          width: 75,
+                                                          child: Image(image: Images.vocabexLogo) ),
+                                                      SizedBox(width: 20),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Container(
+                                                              child: Text('Vocabex', style: WordStyle.appTitle)),
+                                                          Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(left: 4,top: 2.0),
+                                                                child: Container(
+                                                                    height: 10,
+                                                                    width: 10,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors.orange,
+                                                                        shape: BoxShape.circle
+                                                                    )),
+                                                              ),
+                                                              SizedBox(width:5),
+                                                              Container(
+
+                                                                  child: Text('Swift', style: WordStyle.swift)),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+
+                                                  SizedBox(height: 10,),
+                                                  Container(
+                                                      width: screenWidth > 1025 ? 320 : 220,
+                                                      child: Text(Texts.vocabexDescription, style: WordStyle.general,)),
+                                                  SizedBox(height: 60,),
+                                                  Container(
+                                                    child: Text('Technologies', style: WordStyle.technologies),),
+                                                  SizedBox(height: 10,),
+                                                  Row(children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          child: Text('CoreData', style: WordStyle.general),),
+                                                        Container(
+                                                            child: Text('Xcode', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Firebase', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Git', style: WordStyle.general)),
+
+                                                      ],),
+                                                    SizedBox(width: 20,),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                            child: Text('Vision', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Observer', style: WordStyle.general)),
+
+                                                      ],)
+                                                  ],),
+                                                  SizedBox(height: 20,),
+
+                                                  GestureDetector(
+
+                                                    child: Container(
+                                                        height: 50,
+                                                        width: 150,
+
+                                                        child: Image(image: Images.availableOnAppStore, )),
+                                                  ),
+
+
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 25.0),
+                                                    child: GestureDetector(
+                                                      onTap: (){
+                                                        if(vocabexSelected == false) {
+                                                          setState(() {
+
+                                                            vocabexSelected = true;
+                                                          });
+                                                        } else {
+                                                          setState(() {
+                                                            vocabexSelected = false;
+
+                                                          });
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                          margin: const EdgeInsets.all(15.0),
+                                                          padding: const EdgeInsets.all(3.0),
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(color: Colors.black26)
+                                                          ),
+                                                          child: Text('More info', style:  WordStyle.more)),
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
                                     ],
                                   ),
-                                  SizedBox(height: 20,),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(verossaSelected == false) {
-                                        setState(() {
-                                          verossaSelected = true;
-                                        });
-                                      } else {
-                                        setState(() {
-                                          verossaSelected = false;
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                        margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(3.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
+                                ],
+                              ),
+                              Center(
+                                child: AnimatedContainer(
+                                  //color: Colors.white,
+                                    decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
+
+
+                                    height: vocabexACHeight(),
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                    child: VisibilityDetector(
+
+                                      key: Key('MoreVocabex'),
+
+                                      onVisibilityChanged: (visibilityInfo) {
+                                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                        debugPrint(
+                                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                        if(visiblePercentage > 10) {
+                                          print('>10');
+                                          animationControllerForMoreVocabex.forward();
+                                        }
+                                        if(visiblePercentage == 0) {
+                                          print('<50');
+                                          animationControllerForMoreVocabex.reverse();
+                                        }
+
+                                      },
+                                      child: FadeIn(
+                                        duration: Duration(milliseconds: 700),
+                                        manualTrigger: true,
+                                        animate: false,
+                                        controller: ( controller ) => animationControllerForMoreVocabex = controller,
+
+                                        child: screenWidth > 1025 ? Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: vocabexSelected == true ? Column(
+
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 0.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+
+
+
+                                                        height: 490,
+                                                        width: 230,
+
+                                                        child: Image(image:Images.vocabexSS3)),
+                                                    SizedBox(width: 20,),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(bottom: 0.0),
+                                                      child: Column(
+                                                        children: [
+
+                                                          Container(
+                                                            width: 200,
+                                                            child: Text(Texts.vocabexSS3,
+
+                                                                style: WordStyle.general),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 20,),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 40, top: 0),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+
+
+                                                              height: 490,
+                                                              width: 230,
+
+                                                              child: Image(image:Images.vocabexSS1)),
+                                                          SizedBox(width: 20,),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(bottom: 0.0),
+                                                            child: Column(
+                                                              children: [
+
+                                                                Container(
+                                                                  width: 200,
+                                                                  child: Text(Texts.vocabexSS2,
+
+                                                                      style: WordStyle.general),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+
+                                                        ],
+                                                      ),
+                                                    ),
+
+
+
+
+
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 0.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+
+
+                                                        height: 490,
+                                                        width: 230,
+
+                                                        child: Image(image:Images.vocabexSS4)),
+                                                    SizedBox(width: 20,),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(bottom: 0.0),
+                                                      child: Column(
+                                                        children: [
+
+                                                          Container(
+                                                            width: 200,
+                                                            child: Text(Texts.vocabexSS4,
+
+                                                                style: WordStyle.general),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+
+
+
+
+
+
+                                                  ],
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(vocabexSelected == false) {
+                                                    setState(() {
+                                                      vocabexSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      vocabexSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 0.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ) : Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: vocabexSelected == true ? Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image: Images.vocabexSS3)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.vocabexSS3,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 0, top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.vocabexSS1)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.vocabexSS2,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.vocabexSS4)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.vocabexSS4,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(vocabexSelected == false) {
+                                                    setState(() {
+                                                      vocabexSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      vocabexSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 0.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
                                         ),
-                                        child: Text('More info', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
+                                      ),
+                                    )),
+                              ),
+
+
+                              //Verossa
+                              SizedBox(height: 50,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                //crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //slight delay in fade in
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Center(
+                                            child: VisibilityDetector(
+
+                                              key: Key('Phone'),
+
+                                              onVisibilityChanged: (visibilityInfo) {
+                                                var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                                debugPrint(
+                                                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                                if(visiblePercentage > 10) {
+                                                  print('>10');
+                                                  animationControllerForPhone.forward();
+                                                }
+                                                if(visiblePercentage == 0) {
+                                                  print('<50');
+                                                  animationControllerForPhone.reverse();
+                                                }
+
+                                              },
+                                              child: FadeIn(
+                                                duration: Duration(milliseconds: 1000),
+                                                manualTrigger: true,
+                                                animate: false,
+                                                controller: ( controller ) => animationControllerForPhone = controller,
+
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(left: screenWidth > 1025 ? 105.0 : 0),
+                                                  child: Container(
+
+                                                      height: 500,
+                                                      width: screenWidth > 760 ? 300 : 245,
+
+                                                      child: Image(image:Images.screenshotHomePage)),
+                                                ),
+
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Center(
+                                        child: VisibilityDetector(
+
+                                          key: Key('VTitle'),
+
+                                          onVisibilityChanged: (visibilityInfo) {
+                                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                            debugPrint(
+                                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                            if(visiblePercentage > 10) {
+                                              print('>10');
+                                              animationControllerForVTitle.forward();
+                                            }
+                                            if(visiblePercentage == 0) {
+                                              print('<50');
+                                              animationControllerForVTitle.reverse();
+                                            }
+
+                                          },
+                                          child: FadeIn(
+                                            duration: Duration(milliseconds: 1000),
+                                            manualTrigger: true,
+                                            animate: false,
+                                            controller: ( controller ) => animationControllerForVTitle = controller,
+
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                          decoration: BoxDecoration(
+                                                            border: Border.all(),
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
+                                                          height: 75,
+                                                          width: 75,
+                                                          child: Image(image: Images.verossaLogo) ),
+                                                      SizedBox(width: 20),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Container(
+
+                                                              child: Text('Verossa Valey', style: WordStyle.appTitle)),
+                                                          Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(left: 4,top: 2.0),
+                                                                child: Container(
+                                                                    height: 10,
+                                                                    width: 10,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors.teal,
+                                                                        shape: BoxShape.circle
+                                                                    )),
+                                                              ),
+                                                              SizedBox(width:5),
+                                                              Container(
+
+                                                                  child: Text('Dart', style: WordStyle.swift)),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+
+                                                  SizedBox(height: 10,),
+                                                  Container(
+
+                                                      child: Text(Texts.verossaDescription, style: WordStyle.general,)),
+                                                  SizedBox(height: 60,),
+                                                  Container(
+                                                    child: Text('Technologies', style: WordStyle.technologies),),
+                                                  SizedBox(height: 10,),
+                                                  Row(children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          child: Text('Flutter', style: WordStyle.general),),
+                                                        Container(
+                                                            child: Text('Android Studio', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Firebase', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Git', style: WordStyle.general)),
+
+                                                      ],),
+                                                    SizedBox(width: 20,),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                            child: Text('Stripe Payments', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('SendGrid Email', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Provider', style: WordStyle.general)),
+
+                                                      ],)
+                                                  ],),
+                                                  SizedBox(height: 20,),
+
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                          height: 50,
+                                                          width: 50,
+                                                          child: Image(image: Images.testFlightIcon, )),
+                                                      SizedBox(width:10),
+                                                      Container(child: Text('Available on TestFlight', style: WordStyle.general)),
+                                                    ],
+                                                  ),
+
+
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 25.0, top: 10),
+                                                    child: GestureDetector(
+                                                      onTap: (){
+                                                        if(verossaSelected == false) {
+                                                          setState(() {
+                                                            verossaSelected = true;
+                                                          });
+                                                        } else {
+                                                          setState(() {
+                                                            verossaSelected = false;
+                                                          });
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                          margin: const EdgeInsets.all(15.0),
+                                                          padding: const EdgeInsets.all(3.0),
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(color: Colors.black26)
+                                                          ),
+                                                          child: Text('More info', style:  WordStyle.more)),
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
+
 
                                 ],
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      ],
-                      )
+                              Center(
+                                child: AnimatedContainer(
+                                  //color: Colors.white,
+                                    decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
 
 
-                    ],
-                  ),
+                                    height: verossaACHeight(),
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                    child: VisibilityDetector(
 
-                  Center(
-                    child: AnimatedContainer(
-                      //color: Colors.white,
-                        decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
+                                      key: Key('MoreVerossa'),
 
+                                      onVisibilityChanged: (visibilityInfo) {
+                                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                        debugPrint(
+                                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                        if(visiblePercentage > 10) {
+                                          print('>10');
+                                          animationControllerForMoreVerossa.forward();
+                                        }
+                                        if(visiblePercentage == 0) {
+                                          print('<50');
+                                          animationControllerForMoreVerossa.reverse();
+                                        }
 
-                        height: verossaACHeight(),
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.ease,
-                        child: VisibilityDetector(
+                                      },
+                                      child: FadeIn(
+                                        duration: Duration(milliseconds: 700),
+                                        manualTrigger: true,
+                                        animate: false,
+                                        controller: ( controller ) => animationControllerForMoreVerossa = controller,
 
-                          key: Key('MoreVerossa'),
+                                        child: screenWidth > 1025 ? Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: verossaSelected == true ? Column(
 
-                          onVisibilityChanged: (visibilityInfo) {
-                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                            debugPrint(
-                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                            if(visiblePercentage > 10) {
-                              print('>10');
-                              animationControllerForMoreVerossa.forward();
-                            }
-                            if(visiblePercentage == 0) {
-                              print('<50');
-                              animationControllerForMoreVerossa.reverse();
-                            }
-
-                          },
-                          child: FadeIn(
-                            duration: Duration(milliseconds: 700),
-                            manualTrigger: true,
-                            animate: false,
-                            controller: ( controller ) => animationControllerForMoreVerossa = controller,
-
-                            child: screenWidth > 1025 ? Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: verossaSelected == true ? Column(
-
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 0),
-                                        child: Row(
-                                          children: [
-
-                                            Container(
-
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image(image:Images.screenshot1)),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Row(
+                                                      children: [
 
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot1,
+                                                        Container(
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot1)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot1,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 20,),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 40, top: 0),
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot2)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot2,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+
+
+
+
+
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Row(
+                                                      children: [
+
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot3)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot3,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 20,),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 40, top: 0),
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot4)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot4,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+
+                                                      ],
+                                                    ),
+                                                  ),
+
+
+
+
+
+                                                ],
+                                              ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(verossaSelected == false) {
+                                                    setState(() {
+                                                      verossaSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      verossaSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 0.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ) : Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: verossaSelected == true ? Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image: Images.screenshot1)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot1,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(width: 20,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 40, top: 0),
-                                        child: Row(
-                                          children: [
-                                            Container(
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image(image:Images.screenshot2)),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 0, top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
 
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot2,
+                                                            height: 490,
+                                                            width: 230,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
+                                                            child: Image(image:Images.screenshot2)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot2,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-
-
-
-
-
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 0),
-                                        child: Row(
-                                          children: [
-
-                                            Container(
-
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image(image:Images.screenshot3)),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
 
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot3,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot3)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot3,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(width: 20,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 40, top: 0),
-                                        child: Row(
-                                          children: [
-                                            Container(
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image(image:Images.screenshot4)),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 0, top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
 
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot4,
+                                                            height: 490,
+                                                            width: 230,
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
+                                                            child: Image(image:Images.screenshot4)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot4,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-
-
-                                          ],
-                                        ),
-                                      ),
-
-
-
-
-
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(verossaSelected == false) {
-                                        setState(() {
-                                          verossaSelected = true;
-                                        });
-                                      } else {
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(verossaSelected == false) {
+                                                    setState(() {
+                                                      verossaSelected = true;
+                                                    });
+                                                  } else {
 
 
 
-                                        setState(() {
-                                          verossaSelected = false;
-                                        });
+                                                    setState(() {
+                                                      verossaSelected = false;
+                                                    });
 
 
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 0.0),
-                                      child: Container(
-                                        //margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(0.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
-                                        ),
-                                        child: Icon(Icons.arrow_drop_up_sharp),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ) : Container(),
-                            ) : Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: verossaSelected == true ? Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 0),
-                                        child: Row(
-                                          children: [
-                                            Column(children: [
-                                              Container(
-
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image(image:Images.screenshot1)),
-                                              SizedBox(width: 0,),
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 0.0),
-                                                child: Column(
-                                                  children: [
-
-                                                    Container(
-                                                      width: 200,
-                                                      child: Text(Texts.screenshot1,
-
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 15.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
                                                     ),
-                                                  ],
-                                                ),
-                                              ),],)
-
-
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 0, top: 0),
-                                        child: Row(
-                                          children: [
-                                            Column(children: [
-                                              Container(
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image(image:Images.screenshot2)),
-                                              SizedBox(width: 0,),
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 0.0),
-                                                child: Column(
-                                                  children: [
-
-                                                    Container(
-                                                      width: 200,
-                                                      child: Text(Texts.screenshot2,
-
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),],)
-
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 0),
-                                        child: Row(
-                                          children: [
-                                            Column(children: [
-                                              Container(
-
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image(image:Images.screenshot3)),
-                                              SizedBox(width: 0,),
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 0.0),
-                                                child: Column(
-                                                  children: [
-
-                                                    Container(
-                                                      width: 200,
-                                                      child: Text(Texts.screenshot3,
-
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),],)
-
-
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 0, top: 0),
-                                        child: Row(
-                                          children: [
-                                            Column(children: [
-                                              Container(
-
-                                                  height: 490,
-                                                  width: 230,
-
-                                                  child: Image(image:Images.screenshot4)),
-                                              SizedBox(width: 0,),
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 0.0),
-                                                child: Column(
-                                                  children: [
-
-                                                    Container(
-                                                      width: 200,
-                                                      child: Text(Texts.screenshot4,
-
-                                                        style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                    ),
-                                                  ],
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
                                                 ),
                                               ),
-                                            ],)
-
-
-
-                                          ],
+                                            ],
+                                          ) : Container(),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 30,),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(verossaSelected == false) {
-                                        setState(() {
-                                          verossaSelected = true;
-                                        });
-                                      } else {
-
-
-
-                                        setState(() {
-                                          verossaSelected = false;
-                                        });
-
-
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 0.0),
-                                      child: Container(
-                                        //margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(0.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
-                                        ),
-                                        child: Icon(Icons.arrow_drop_up_sharp),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ) : Container(),
-                            ),
-                          ),
-                        )),
-                  ),
-
-
-
-
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(children: [
-                        Row(
-                          children: [
-                            Center(
-                              child: VisibilityDetector(
-
-                                key: Key('TPhone'),
-
-                                onVisibilityChanged: (visibilityInfo) {
-                                  var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                                  debugPrint(
-                                      'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                                  if(visiblePercentage > 10) {
-                                    print('>10');
-                                    animationControllerForTPhone.forward();
-                                  }
-                                  if(visiblePercentage == 0) {
-                                    print('<50');
-                                    animationControllerForTPhone.reverse();
-                                  }
-
-                                },
-                                child: FadeIn(
-                                  duration: Duration(milliseconds: 1000),
-                                  manualTrigger: true,
-                                  animate: false,
-                                  controller: ( controller ) => animationControllerForTPhone = controller,
-
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 0.0),
-                                    child: Container(
-
-                                        height: 500,
-                                        width: 200,
-
-                                        child: Image.asset('assets/CommingSoon.jpg')),
-                                  ),
-
-                                ),
+                                    )),
                               ),
-                            ),
-                          ],
-                        ),
-                        Center(
-                          child: VisibilityDetector(
 
-                            key: Key('TTitle'),
 
-                            onVisibilityChanged: (visibilityInfo) {
-                              var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                              debugPrint(
-                                  'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                              if(visiblePercentage > 10) {
-                                print('>10');
-                                animationControllerForTTitle.forward();
-                              }
-                              if(visiblePercentage == 0) {
-                                print('<50');
-                                animationControllerForTTitle.reverse();
-                              }
 
-                            },
-                            child: FadeIn(
-                              duration: Duration(milliseconds: 1000),
-                              manualTrigger: true,
-                              animate: false,
-                              controller: ( controller ) => animationControllerForTTitle = controller,
 
-                              child: Padding(
-                                padding: EdgeInsets.only(left: screenWidth > 727 ? 150 : 0, right: screenWidth > 640 ? 110 : 0),
-                                child: Column(
+                              //Java Quiz
+                              SizedBox(height: 50,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                //crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //slight delay in fade in
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Center(
+                                            child: VisibilityDetector(
+
+                                              key: Key('javaPhone'),
+
+                                              onVisibilityChanged: (visibilityInfo) {
+                                                var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                                debugPrint(
+                                                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                                if(visiblePercentage > 10) {
+                                                  print('>10');
+                                                  animationControllerForJavaPhone.forward();
+                                                }
+                                                if(visiblePercentage == 0) {
+                                                  print('<50');
+                                                  animationControllerForJavaPhone.reverse();
+                                                }
+
+                                              },
+                                              child: FadeIn(
+                                                duration: Duration(milliseconds: 1000),
+                                                manualTrigger: true,
+                                                animate: false,
+                                                controller: ( controller ) => animationControllerForJavaPhone = controller,
+
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(left: screenWidth > 1025 ? 130 : screenWidth > 726 && screenWidth < 1025 ? 30.0 : 10),
+                                                  child: Container(
+
+                                                      height: 450,
+                                                      width: 220,
+
+                                                      child: Image(image:Images.javaSS1)),
+                                                ),
+
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Center(
+                                        child: VisibilityDetector(
+
+                                          key: Key('javaTitle'),
+
+                                          onVisibilityChanged: (visibilityInfo) {
+                                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                            debugPrint(
+                                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                            if(visiblePercentage > 10) {
+                                              print('>10');
+                                              animationControllerForJava.forward();
+                                            }
+                                            if(visiblePercentage == 0) {
+                                              print('<50');
+                                              animationControllerForJava.reverse();
+                                            }
+
+                                          },
+                                          child: FadeIn(
+                                            duration: Duration(milliseconds: 1000),
+                                            manualTrigger: true,
+                                            animate: false,
+                                            controller: ( controller ) => animationControllerForJava = controller,
+
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 30),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+
+                                                          height: 75,
+                                                          width: 75,
+                                                          child: Image(image: Images.javaLogo) ),
+                                                      SizedBox(width: 20),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Container(
+                                                              child: Text('Java Quiz App', style: WordStyle.appTitle)),
+                                                          Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(left: 4,top: 2.0),
+                                                                child: Container(
+                                                                    height: 10,
+                                                                    width: 10,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors.deepOrangeAccent,
+                                                                        shape: BoxShape.circle
+                                                                    )),
+                                                              ),
+                                                              SizedBox(width:5),
+                                                              Container(
+
+                                                                  child: Text('Java', style: WordStyle.swift)),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+
+                                                  SizedBox(height: 10,),
+                                                  Container(
+
+                                                      child: Text(Texts.javaDescription, style: WordStyle.general,)),
+                                                  SizedBox(height: 60,),
+                                                  Container(
+                                                    child: Text('Technologies', style: WordStyle.technologies),),
+                                                  SizedBox(height: 10,),
+                                                  Row(children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          child: Text('Android Studio', style: WordStyle.general),),
+                                                        Container(
+                                                            child: Text('Observer Pattern', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Firebase', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Git', style: WordStyle.general)),
+
+                                                      ],),
+
+                                                  ],),
+                                                  SizedBox(height: 20,),
+
+                                                  GestureDetector(
+                                                    onTap: () {_launchJavaQuiz();},
+                                                    child: Container(
+                                                        height: 50,
+                                                        width: 150,
+
+                                                        child: Image(image: Images.availableOnGooglePlay, )),
+                                                  ),
+                                                  SizedBox(height: 50,),
+
+
+
+
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+                                ],
+                              ),
+
+
+
+
+                            ],
+
+                          ),
+                          Stack(children: [
+                            Container(
+                              color: Colors.white70,
+                              child: orientation == Orientation.portrait
+                                  ? Column(
+                                children: childrenBottom,
+                              )
+                                  : Container(
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        child: Text('Vocabear', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 30, fontWeight: FontWeight.w500),)),
-                                    SizedBox(height: 10,),
-                                    Container(
-                                        child: Text('English vocabulary builder', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                    SizedBox(height: 40,),
-                                    Container(
-                                        child: Text('Technologies', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black54, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                    SizedBox(height: 10,),
-                                    Row(children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                              child: Text('Swift', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                          Container(
-                                              child: Text('Xcode', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                          Container(
-                                              child: Text('Firebase', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
 
-
-                                        ],),
-                                      SizedBox(width: 20,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                              child: Text('Cocoapods', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                          Container(
-                                              child: Text('Core Data', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                          Container(
-                                              child: Text('Networking', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w200),)),
-                                        ],)
-                                    ],),
-                                    SizedBox(height: 60,),
-
-
-                                  ],
+                                  children: childrenBottom.reversed.toList(),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
+                            Container(
+                              width: screenWidth,
+                              height: 300,//screenWidth < 1173 ? 300 + c : 300 -c,//screenWidth * 0.2123,
+                              color: Colors.black45,
+                            ),
+                            Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:8.0),
+                                    child: Container(child: Text('This web app is build with Flutter', style: WordStyle.bottomHeaderMadeBy)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18.0),
+                                    child: Container(
+                                        child: Text('Contact', style: WordStyle.contact)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18.0),
+                                    child: Container(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            IconTheme(
+                                                data: IconThemeData(
+                                                    color: Colors.white
+                                                ),
+                                                child: Icon(Icons.email)),
+                                            SizedBox(width: 10,),
+                                            Text('levmartens@gmail.com', style: WordStyle.bottomHeader),
+                                          ],
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18.0, left: 7),
+                                    child: Container(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            IconTheme(
+                                                data: IconThemeData(
+                                                    color: Colors.white
+                                                ),
+                                                child: Icon(Icons.phone)),
+                                            SizedBox(width: 10,),
+                                            Text('+61478190410                ', style: WordStyle.bottomHeader),
+                                          ],
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18.0),
+                                    child: Container(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            IconTheme(
+                                                data: IconThemeData(
+                                                    color: Colors.white
+                                                ),
+                                                child: Icon(Icons.pin_drop)),
+                                            SizedBox(width: 10,),
+                                            Text('Melbourne, Victoria     ', style: WordStyle.bottomHeader,),
+                                          ],
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 30,top: 17.0),
+                                    child: Container(
+                                        child: GestureDetector(
+                                          onTap: () {_launchGitHubURL();},
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Container(
 
 
-                      ],)
 
 
+                                                  height: 30,
+                                                  width: 30,
 
-                    ],
-                  ),
+                                                  child: Image.asset('assets/github2.png')),
+                                              SizedBox(width: 5,),
+                                              Text('github.com/LevMartens     ', style: WordStyle.bottomHeader),
+                                            ],
+                                          ),
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 0,top: 12.0),
+                                    child: Container(
+                                        child: GestureDetector(
+                                          onTap: () {_launchStackOFURL();},
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+
+                                                  height: 30,
+                                                  width: 30,
+
+                                                  child: Image.asset('assets/stack.png')),
+                                              SizedBox(width: 5,),
+                                              Text('Stackoverflow               ', style: WordStyle.bottomHeader),
+                                            ],
+                                          ),
+                                        )),
+                                  ),
 
 
+                                ],
+                              ),
+                            ),
 
-                ],
-
-              ),
-              Stack(children: [
-                Container(
-                  color: Colors.white70,
-                  child: orientation == Orientation.portrait
-                      ? Column(
-                    children: childrenBottom,
-                  )
-                      : Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-
-                      children: childrenBottom.reversed.toList(),
+                          ]),
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                Container(
-                  width: screenWidth,
-                  height: 300,//screenWidth < 1173 ? 300 + c : 300 -c,//screenWidth * 0.2123,
-                  color: Colors.black45,
-                ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
-                        child: Container(
-                            child: Text('Contact', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 30, fontWeight: FontWeight.w200),)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
-                        child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.email),
-                                SizedBox(width: 10,),
-                                Text('levmartens@gmail.com', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
-                        child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.phone),
-                                SizedBox(width: 10,),
-                                Text('+61478190410                ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
-                        child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.pin_drop),
-                                SizedBox(width: 10,),
-                                Text('Melbourne, Victoria     ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30,top: 18.0),
-                        child: Container(
-                            child: GestureDetector(
-                              onTap: () {_launchGitHubURL();},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-
-
-
-
-                                  height: 30,
-                                  width: 30,
-
-                                  child: Image.asset('assets/github2.png')),
-                                  SizedBox(width: 5,),
-                                  Text('github.com/LevMartens     ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                                ],
-                              ),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 0,top: 18.0),
-                        child: Container(
-                            child: GestureDetector(
-                              onTap: () {_launchStackOFURL();},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-
-                                      height: 30,
-                                      width: 30,
-
-                                      child: Image.asset('assets/stack.png')),
-                                  SizedBox(width: 5,),
-                                  Text('Stackoverflow               ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                                ],
-                              ),
-                            )),
-                      ),
-
-                    ],
-                  ),
-                ),
-
-              ]),
-            ],
-          ),
+              ),]
         ),
       ),
     );
   }
 }
 
-class HomeMobileLandscape extends StatefulWidget {
+class HomeMobilePortrait extends StatefulWidget {
 
-  HomeMobileLandscape({
+  HomeMobilePortrait({
     Key key,
   }) : super(key: key);
 
 
 
   @override
-  State<StatefulWidget> createState() => _HomePageStateLandscape();
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _HomePageStateLandscape extends State<HomeMobileLandscape> {
+class _HomePageState extends State<HomeMobilePortrait> {
   bool aboutMeSelected = false;
   bool verossaSelected = false;
+  bool vocabexSelected = false;
   final _scrollController = ScrollController(keepScrollOffset: false);
   AnimationController animationControllerForTest;
   AnimationController animationControllerForAboutMe;
@@ -1566,7 +2228,11 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
   AnimationController animationControllerForTTitle;
   AnimationController animationControllerForMoreAbout;
   AnimationController animationControllerForMoreVerossa;
-
+  AnimationController animationControllerForMoreVocabex;
+  AnimationController animationControllerForVocabex;
+  AnimationController animationControllerForVocabexPhone;
+  AnimationController animationControllerForJava;
+  AnimationController animationControllerForJavaPhone;
   _launchGitHubURL() async {
     const url = 'https://github.com/LevMartens';
     if (await canLaunch(url)) {
@@ -1591,12 +2257,40 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
       throw 'Could not launch $url';
     }
   }
+  _launchJavaQuiz() async {
+    const url = 'https://play.google.com/store/apps/details?id=com.levmartens.melbournequizzapp';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(Images.aboutMe, context);
+    precacheImage(Images.firstStackImage, context);
+    precacheImage(Images.lastStackImage, context);
+    precacheImage(Images.personalLife, context);
+    precacheImage(Images.workHistory1, context);
+    precacheImage(Images.workHistory2, context);
+    precacheImage(Images.hobbies, context);
+    precacheImage(Images.testFlightIcon, context);
+    precacheImage(Images.screenshotHomePage, context);
+    precacheImage(Images.screenshot1, context);
+    precacheImage(Images.screenshot2, context);
+    precacheImage(Images.screenshot3, context);
+    precacheImage(Images.screenshot4, context);
+    precacheImage(Images.screenshotComingSoon, context);
+    super.didChangeDependencies();
+  }
 
 
 
   @override
   Widget build(BuildContext context) {
-
+    onMobile = true;
     bool startAnimation = false;
     var orientation = MediaQuery.of(context).orientation;
     var screenHeight = MediaQuery.of(context).size.height;
@@ -1613,7 +2307,7 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
         height: screenWidth * 0.5123,
         child: FittedBox(
             fit: BoxFit.fill,
-            child: Image(image: Images.firstStackImage )),
+            child: Image(image: Images.firstStackImage)),
       ),
 
     ];
@@ -1632,24 +2326,53 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
 
     double verossaACHeight() {
-      if(verossaSelected == true && screenWidth < 1025) { return 2000;}
+      if(verossaSelected == true && screenWidth < 1025) { return 3413;}
       if(verossaSelected == true && screenWidth > 1025) { return 1010;}
       if(verossaSelected == false) { return 0;}
     }
+    double vocabexACHeight() {
+      if(vocabexSelected == true && screenWidth < 1025) { return 2273;}
+      if(vocabexSelected == true && screenWidth > 1025) { return 1010;}
+      if(vocabexSelected == false) { return 0;}
+    }
     double aboutMeACHeight() {
-      if(aboutMeSelected == true && screenWidth < 1025) { return 830;}
+      if(aboutMeSelected == true && screenWidth < 1025) { return 1494;}
       if(aboutMeSelected == true && screenWidth > 1025) { return 610;}
       if(aboutMeSelected == false) { return 0;}
     }
+
+    double totalACHeightAbove1025() {
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == false) { return 2397;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == true) { return 5027;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == false) { return 3007;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == false) { return 5282;}
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == true) { return 3407;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == false) { return 4017;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == true) { return 4017;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == true) { return 4417;}
+
+    }
+    double totalACHeightBelow1025() {
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == false) { return 3877;}//396
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == true) { return 11057;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == false) { return 5371;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == false) { return 6150;}
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == true) { return 7290;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == false) { return 7644;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == true) { return 8784;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == true) { return 9563;}
+
+    }
+
+
 
 
     return Scaffold(
 
       body: Container(
-        height: 2400,
+        height: 3000,
         color: Colors.white,
-        child: SingleChildScrollView(
-          child: Column(
+        child: Stack(
             children: [
               Stack(children: [
                 Container(
@@ -1677,9 +2400,9 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
                   child: Center(child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('HELLO. WORLD.',style: TextStyle(color: Color(0xFFf4f4f4), fontSize: 14, fontWeight: FontWeight.w500),),
-                      Text('I\'m Lev Martens.',style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 45, fontWeight: FontWeight.w500),),
-                      Text('Website / App Developer',style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),),
+
+                      Text('Lev Martens.',style: WordStyle.header),
+                      Text('Swift, Java and Flutter Enthusiast ',style: WordStyle.headerSecond),
                     ],
                   )),),
 
@@ -1688,1361 +2411,1983 @@ class _HomePageStateLandscape extends State<HomeMobileLandscape> {
 
 
               ]),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
 
-                  SizedBox(height: 100,),
-                  Center(
-                    child: VisibilityDetector(
-
-                      key: Key('About Me'),
-
-                      onVisibilityChanged: (visibilityInfo) {
-                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                        debugPrint(
-                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                        if(visiblePercentage > 10) {
-                          print('>10');
-                          animationControllerForAboutMe.forward();
-                        }
-                        if(visiblePercentage == 0) {
-                          print('<50');
-                          animationControllerForAboutMe.reverse();
-                        }
-
-                      },
-                      child: FadeIn(
-                        duration: Duration(milliseconds: 1000),
-                        manualTrigger: true,
-                        animate: false,
-                        controller: ( controller ) => animationControllerForAboutMe = controller,
-
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 0.0),
-                          child: Container(
-                            height: 250,
-                            width: 600,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 30.0),
-                                  child: Container(
-                                    height: 150,
-                                    width: 150,
-
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            fit: BoxFit.contain,
-                                            image:  Images.aboutMe,
-                                        )
-
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(right: 150.0),
-                                        child: Text('ABOUT ME', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                      ),
-                                      SizedBox(height: 25,),
-                                      Container(
-                                        width: 375,
-                                        child: Text(Texts.aboutMe,
-
-                                          style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                      ),
-                                      SizedBox(height: 25,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(right: 150.0),
-                                        child: GestureDetector(
-                                          onTap: (){
-                                            if(aboutMeSelected == false) {
-                                              setState(() {
-                                                aboutMeSelected = true;
-                                              });
-                                            } else {
-
-
-
-                                              setState(() {
-                                                aboutMeSelected = false;
-                                              });
-
-
-                                            }
-                                          },
-                                          child: Container(
-                                              margin: const EdgeInsets.all(15.0),
-                                              padding: const EdgeInsets.all(3.0),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(color: Colors.black26)
-                                              ),
-                                              child: Text('More about me', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 50,),
-
-
-
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      width: screenWidth,
+                      height: screenWidth * 0.5123,
+                      color: Colors.transparent,
                     ),
-                  ),
+                    Container(
+                      height: screenWidth > 1025 ? totalACHeightAbove1025() : totalACHeightBelow1025(),
+                      color: Colors.white,
+                      child: Column(
+                        children: [
 
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
 
-                  Center(
-                      child: AnimatedContainer(
-                        //color: Colors.black12,
-                        decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
+                              SizedBox(height: 100,),
+                              Center(
+                                child: VisibilityDetector(
 
+                                  key: Key('About Me'),
 
+                                  onVisibilityChanged: (visibilityInfo) {
+                                    var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                    debugPrint(
+                                        'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                    if(visiblePercentage > 10) {
+                                      print('>10');
+                                      animationControllerForAboutMe.forward();
+                                    }
+                                    if(visiblePercentage == 0) {
+                                      print('<50');
+                                      animationControllerForAboutMe.reverse();
+                                    }
 
-                        height: aboutMeACHeight(),
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.ease,
-                        child: VisibilityDetector(
+                                  },
+                                  child: FadeIn(
+                                    duration: Duration(milliseconds: 1000),
+                                    manualTrigger: true,
+                                    animate: false,
+                                    controller: ( controller ) => animationControllerForAboutMe = controller,
 
-                          key: Key('MoreAbout'),
-
-                          onVisibilityChanged: (visibilityInfo) {
-                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                            debugPrint(
-                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                            if(visiblePercentage > 10) {
-                              print('>10');
-                              animationControllerForMoreAbout.forward();
-                            }
-                            if(visiblePercentage == 0) {
-                              print('<50');
-                              animationControllerForMoreAbout.reverse();
-                            }
-
-                          },
-                          child: FadeIn(
-                            duration: Duration(milliseconds: 700),
-                            manualTrigger: true,
-                            animate: false,
-                            controller: ( controller ) => animationControllerForMoreAbout = controller,
-
-                            child: screenWidth > 1025 ? Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: aboutMeSelected == true ? Column(
-
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 50),
-                                        child: Row(
-                                          children: [
-
-                                            Container(
-
-                                                height: 150,
-                                                width: 110,
-
-                                                child: Image.asset('assets/IMG_0888.png')),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 150.0),
-                                                    child: Text('Personal Life', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-                                                    width: 300,
-                                                    child: Text(Texts.personalLife,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(width: 20,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 40, top: 50),
-                                        child: Row(
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Container(
-
-                                                    height: 110,
-                                                    width: 110,
-
-                                                    child: Image.asset('assets/IMG_8484.JPG')),
-                                                Container(
-
-
-                                                    height: 110,
-                                                    width: 110,
-
-                                                    child: Image.asset('assets/IMG_8181.JPG')),
-                                              ],
-                                            ),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 150.0),
-                                                    child: Text('Work History', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-                                                    width: 300,
-                                                    child: Text(Texts.workHistory,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(top:25.0, right: 170),
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        _launchLinkedInURL();
-                                                      },
-                                                      child: Container(
-                                                        child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-
-
-
-
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top:30),
-                                        child: Row(
-                                          children: [
-
-                                            Container(
-
-                                                height: 200,
-                                                width: 180,
-
-                                                child: Image.asset('assets/music.png')),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 150.0),
-                                                    child: Text('Hobbies', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-
-                                                    width: 300,
-                                                    child: Text(Texts.hobbies,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-
-
-
-
-
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(aboutMeSelected == false) {
-                                        setState(() {
-                                          aboutMeSelected = true;
-                                        });
-                                      } else {
-
-
-
-                                        setState(() {
-                                          aboutMeSelected = false;
-                                        });
-
-
-                                      }
-                                    },
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top: 50.0),
+                                      padding: const EdgeInsets.only(right: 0.0),
                                       child: Container(
-                                        //margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(0.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
-                                        ),
-                                        child: Icon(Icons.arrow_drop_up_sharp),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ) : Container(),
-                            ) : Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: aboutMeSelected == true ? Column(
-
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 50),
-                                        child: Row(
+                                        height: 543,
+                                        width: 600,
+                                        child: Column(
                                           children: [
-
-                                            Container(
-
+                                            Padding(
+                                              padding: const EdgeInsets.only(bottom: 30.0),
+                                              child: Container(
                                                 height: 150,
-                                                width: 110,
-
-                                                child: Image.asset('assets/IMG_0888.png')),
-                                            SizedBox(width: 50,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 150.0),
-                                                    child: Text('Personal Life', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-                                                    width: 300,
-                                                    child: Text(Texts.personalLife,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 0, top: 50),
-                                        child: Row(
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Container(
-
-                                                    height: 110,
-                                                    width: 110,
-
-                                                    child: Image.asset('assets/IMG_8484.JPG')),
-                                                Container(
-
-
-                                                    height: 110,
-                                                    width: 110,
-
-                                                    child: Image.asset('assets/IMG_8181.JPG')),
-                                              ],
-                                            ),
-                                            SizedBox(width: 50,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only( right: 150.0),
-                                                    child: Text('Work History', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
-                                                  ),
-                                                  SizedBox(height: 25,),
-                                                  Container(
-                                                    width: 300,
-                                                    child: Text(Texts.workHistory,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(top:25.0, right: 170),
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        _launchLinkedInURL();
-                                                      },
-                                                      child: Container(
-                                                        child: Text('LinkedIn Page', style: TextStyle(decoration: TextDecoration.underline,fontFamily: 'Cormorant',color: Colors.black, fontSize: 14, fontWeight: FontWeight.w900),),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top:30, right: 40),
-                                        child: Row(
-                                          children: [
-
-                                            Container(
-
-                                                height: 200,
                                                 width: 150,
 
-                                                child: Image.asset('assets/music.png')),
-                                            SizedBox(width: 50,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                        fit: BoxFit.contain,
+                                                        image: Images.aboutMe
+                                                    )
 
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 20.0),
+                                              child: Column(
                                                 children: [
                                                   Padding(
-                                                    padding: const EdgeInsets.only( right: 150.0),
-                                                    child: Text('Hobbies', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 20, fontWeight: FontWeight.w900),),
+                                                    padding: const EdgeInsets.only(right: 20.0),
+                                                    child: Text('ABOUT ME', style: WordStyle.style20_300),
                                                   ),
                                                   SizedBox(height: 25,),
                                                   Container(
+                                                    width: 220,
+                                                    child: Text(Texts.aboutMe,
 
-                                                    width: 300,
-                                                    child: Text(Texts.hobbies,
+                                                        style: WordStyle.general),
+                                                  ),
+                                                  SizedBox(height: 25,),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(right: 20.0),
+                                                    child: GestureDetector(
+                                                      onTap: (){
+                                                        if(aboutMeSelected == false) {
+                                                          setState(() {
+                                                            aboutMeSelected = true;
+                                                          });
+                                                        } else {
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
+
+
+                                                          setState(() {
+                                                            aboutMeSelected = false;
+                                                          });
+
+
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                          margin: const EdgeInsets.all(15.0),
+                                                          padding: const EdgeInsets.all(3.0),
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(color: Colors.black26)
+                                                          ),
+                                                          child: Text('More about me', style: WordStyle.more)),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
                                             ),
-
+                                            SizedBox(height: 50,),
                                           ],
                                         ),
                                       ),
-
-
-
-
-
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(aboutMeSelected == false) {
-                                        setState(() {
-                                          aboutMeSelected = true;
-                                        });
-                                      } else {
-
-
-
-                                        setState(() {
-                                          aboutMeSelected = false;
-                                        });
-
-
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 50.0),
-                                      child: Container(
-                                        //margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(0.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
-                                        ),
-                                        child: Icon(Icons.arrow_drop_up_sharp),
-                                      ),
                                     ),
                                   ),
-                                ],
-                              ) : Container(),
-                            ),
-                          ),
-                        ),
-                      )),
+                                ),
+                              ),
+                              Center(
+                                  child: AnimatedContainer(
+                                    //color: Colors.black12,
+                                    decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
+
+
+
+                                    height: aboutMeACHeight(),
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                    child: VisibilityDetector(
+
+                                      key: Key('MoreAbout'),
+
+                                      onVisibilityChanged: (visibilityInfo) {
+                                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                        debugPrint(
+                                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                        if(visiblePercentage > 10) {
+                                          print('>10');
+                                          animationControllerForMoreAbout.forward();
+                                        }
+                                        if(visiblePercentage == 0) {
+                                          print('<50');
+                                          animationControllerForMoreAbout.reverse();
+                                        }
+
+                                      },
+                                      child: FadeIn(
+                                        duration: Duration(milliseconds: 700),
+                                        manualTrigger: true,
+                                        animate: false,
+                                        controller: ( controller ) => animationControllerForMoreAbout = controller,
+
+                                        child: screenWidth > 1025 ? Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: aboutMeSelected == true ? Column(
+
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 50),
+                                                    child: Row(
+                                                      children: [
+
+                                                        Container(
+
+                                                            height: 150,
+                                                            width: 110,
+
+                                                            child: Image(image:Images.personalLife)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 150.0),
+                                                                child: Text('Personal Life', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+                                                                width: 300,
+                                                                child: Text(Texts.personalLife,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 20,),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 40, top: 50),
+                                                    child: Row(
+                                                      children: [
+                                                        Column(
+                                                          children: [
+                                                            Container(
+
+                                                                height: 110,
+                                                                width: 110,
+
+                                                                child: Image(image:Images.workHistory1)),
+                                                            Container(
+
+
+                                                                height: 110,
+                                                                width: 110,
+
+                                                                child: Image(image:Images.workHistory2)),
+                                                          ],
+                                                        ),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 150.0),
+                                                                child: Text('Work History', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+                                                                width: 300,
+                                                                child: Text(Texts.workHistory,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(top:25.0, right: 170),
+                                                                child: GestureDetector(
+                                                                  onTap: () {
+                                                                    _launchLinkedInURL();
+                                                                  },
+                                                                  child: Container(
+                                                                    child: Text('LinkedIn Page', style: WordStyle.linkedIn),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
 
 
 
 
-                  Center(
-                    child: VisibilityDetector(
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top:30),
+                                                    child: Row(
+                                                      children: [
 
-                      key: Key('Portfolio'),
+                                                        Container(
 
-                      onVisibilityChanged: (visibilityInfo) {
-                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                        debugPrint(
-                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                        if(visiblePercentage > 10) {
-                          print('>10');
-                          animationControllerForPortfolio.forward();
-                        }
-                        if(visiblePercentage == 0) {
-                          print('<50');
-                          animationControllerForPortfolio.reverse();
-                        }
 
-                      },
-                      child: FadeIn(
-                        duration: Duration(milliseconds: 1000),
-                        manualTrigger: true,
-                        animate: false,
-                        controller: ( controller ) => animationControllerForPortfolio = controller,
+                                                            height: 200,
+                                                            width: 180,
 
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 60.0),
-                          child: Text('PORTFOLIO', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 45, fontWeight: FontWeight.w500),),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 50,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //slight delay in fade in
-                      Center(
-                        child: VisibilityDetector(
 
-                          key: Key('VTitle'),
+                                                            child: Image(image:Images.hobbies)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
 
-                          onVisibilityChanged: (visibilityInfo) {
-                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                            debugPrint(
-                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                            if(visiblePercentage > 10) {
-                              print('>10');
-                              animationControllerForVTitle.forward();
-                            }
-                            if(visiblePercentage == 0) {
-                              print('<50');
-                              animationControllerForVTitle.reverse();
-                            }
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 150.0),
+                                                                child: Text('Hobbies', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
 
-                          },
-                          child: FadeIn(
-                            duration: Duration(milliseconds: 1000),
-                            manualTrigger: true,
-                            animate: false,
-                            controller: ( controller ) => animationControllerForVTitle = controller,
+                                                                width: 300,
+                                                                child: Text(Texts.hobbies,
 
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+
+
+
+
+
+                                                ],
+                                              ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(aboutMeSelected == false) {
+                                                    setState(() {
+                                                      aboutMeSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      aboutMeSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 50.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ) : Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: aboutMeSelected == true ? Column(
+
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 50),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 150,
+                                                            width: 110,
+
+                                                            child: Image(image: Images.personalLife)),
+                                                        SizedBox(height: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 0.0),
+                                                                child: Text('Personal Life', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+                                                                width: 220,
+                                                                child: Text(Texts.personalLife,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 0, top: 50),
+                                                    child: Column(
+                                                      children: [
+                                                        Column(
+                                                          children: [
+                                                            Container(
+
+                                                                height: 110,
+                                                                width: 110,
+
+                                                                child: Image(image: Images.workHistory1)),
+                                                            Container(
+
+
+                                                                height: 110,
+                                                                width: 110,
+
+                                                                child: Image(image:Images.workHistory2)),
+                                                          ],
+                                                        ),
+                                                        SizedBox(height: 30,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 0.0),
+                                                                child: Text('Work History', style: WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+                                                                width: 220,
+                                                                child: Text(Texts.workHistory,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(top:25.0, right: 0),
+                                                                child: GestureDetector(
+                                                                  onTap: () {
+                                                                    _launchLinkedInURL();
+                                                                  },
+                                                                  child: Container(
+                                                                    child: Text('LinkedIn Page', style: WordStyle.linkedIn),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top:30, right: 40),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 200,
+                                                            width: 150,
+
+                                                            child: Image(image:Images.hobbies)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only( right: 0.0),
+                                                                child: Text('Hobbies', style:  WordStyle.style20_300),
+                                                              ),
+                                                              SizedBox(height: 25,),
+                                                              Container(
+
+                                                                width: 220,
+                                                                child: Text(Texts.hobbies,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+
+
+
+
+
+                                                ],
+                                              ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(aboutMeSelected == false) {
+                                                    setState(() {
+                                                      aboutMeSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      aboutMeSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 50.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ),
+                                      ),
+                                    ),
+                                  )),
+
+                              Center(
+                                child: VisibilityDetector(
+
+                                  key: Key('Portfolio'),
+
+                                  onVisibilityChanged: (visibilityInfo) {
+                                    var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                    debugPrint(
+                                        'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                    if(visiblePercentage > 10) {
+                                      print('>10');
+                                      animationControllerForPortfolio.forward();
+                                    }
+                                    if(visiblePercentage == 0) {
+                                      print('<50');
+                                      animationControllerForPortfolio.reverse();
+                                    }
+
+                                  },
+                                  child: FadeIn(
+                                    duration: Duration(milliseconds: 1000),
+                                    manualTrigger: true,
+                                    animate: false,
+                                    controller: ( controller ) => animationControllerForPortfolio = controller,
+
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 60.0),
+                                      child: Text('PORTFOLIO', style: WordStyle.portfolio),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              //Vocabex
+                              SizedBox(height: 20,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                      child: Text('Verossa Valley', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 35, fontWeight: FontWeight.w500),)),
-                                  SizedBox(height: 10,),
-                                  Container(
-                                      child: Text('Fully fledged webshop demo app', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                  SizedBox(height: 60,),
-                                  Container(
-                                      child: Text('Technologies', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                  SizedBox(height: 10,),
-                                  Row(children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            child: Text('Flutter', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Android Studio', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Firebase', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Git', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-
-                                      ],),
-                                    SizedBox(width: 20,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            child: Text('Stripe Payments', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('SendGrid Email', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Provider', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                      ],)
-                                  ],),
-                                  SizedBox(height: 20,),
-                                  Row(
+                                  Column(
+                                    
                                     children: [
-                                      Container(
+                                      Row(
+                                        children: [
+                                          Center(
+                                            child: VisibilityDetector(
 
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                              key: Key('VocabexPhone'),
+
+                                              onVisibilityChanged: (visibilityInfo) {
+                                                var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                                debugPrint(
+                                                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                                if(visiblePercentage > 10) {
+                                                  print('>10');
+                                                  animationControllerForVocabexPhone.forward();
+                                                }
+                                                if(visiblePercentage == 0) {
+                                                  print('<50');
+                                                  animationControllerForVocabexPhone.reverse();
+                                                }
+
+                                              },
+                                              child: FadeIn(
+                                                duration: Duration(milliseconds: 1000),
+                                                manualTrigger: true,
+                                                animate: false,
+                                                controller: ( controller ) => animationControllerForVocabexPhone = controller,
+
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(left: screenWidth > 726 ? 70.0 : 0),
+                                                  child: Container(
+
+                                                      height: 500,
+                                                      width: 300,
+
+                                                      child: Image(image:Images.vocabexSS2)),
+                                                ),
+
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                      Center(
+                                        child: VisibilityDetector(
 
-                                          height: 40,
-                                          width: 40,
+                                          key: Key('VocabexTitle'),
 
-                                          child: Image.asset('assets/TestFlight_Icon.png')),
-                                      SizedBox(width: 10,),
-                                      Container(
-                                          child: Text('Available on TestFlight', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
+                                          onVisibilityChanged: (visibilityInfo) {
+                                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                            debugPrint(
+                                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                            if(visiblePercentage > 10) {
+                                              print('>10');
+                                              animationControllerForVocabex.forward();
+                                            }
+                                            if(visiblePercentage == 0) {
+                                              print('<50');
+                                              animationControllerForVocabex.reverse();
+                                            }
+
+                                          },
+                                          child: FadeIn(
+                                            duration: Duration(milliseconds: 1000),
+                                            manualTrigger: true,
+                                            animate: false,
+                                            controller: ( controller ) => animationControllerForVocabex = controller,
+
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                          height: 75,
+                                                          width: 75,
+                                                          child: Image(image: Images.vocabexLogo) ),
+                                                      SizedBox(width: 20),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Container(
+                                                              child: Text('Vocabex', style: WordStyle.appTitle)),
+                                                          Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(left: 4,top: 2.0),
+                                                                child: Container(
+                                                                    height: 10,
+                                                                    width: 10,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors.orange,
+                                                                        shape: BoxShape.circle
+                                                                    )),
+                                                              ),
+                                                              SizedBox(width:5),
+                                                              Container(
+
+                                                                  child: Text('Swift', style: WordStyle.swift)),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+
+                                                  SizedBox(height: 10,),
+                                                  Container(
+                                                      width: screenWidth > 1025 ? 320 : 220,
+                                                      child: Text(Texts.vocabexDescription, style: WordStyle.general,)),
+                                                  SizedBox(height: 60,),
+                                                  Container(
+                                                    child: Text('Technologies', style: WordStyle.technologies),),
+                                                  SizedBox(height: 10,),
+                                                  Row(children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          child: Text('CoreData', style: WordStyle.general),),
+                                                        Container(
+                                                            child: Text('Xcode', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Firebase', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Git', style: WordStyle.general)),
+
+                                                      ],),
+                                                    SizedBox(width: 20,),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                            child: Text('Vision', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Observer', style: WordStyle.general)),
+
+                                                      ],)
+                                                  ],),
+                                                  SizedBox(height: 20,),
+
+                                                  GestureDetector(
+
+                                                    child: Container(
+                                                        height: 50,
+                                                        width: 150,
+
+                                                        child: Image(image: Images.availableOnAppStore, )),
+                                                  ),
+
+
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 25.0),
+                                                    child: GestureDetector(
+                                                      onTap: (){
+                                                        if(vocabexSelected == false) {
+                                                          setState(() {
+
+                                                            vocabexSelected = true;
+                                                          });
+                                                        } else {
+                                                          setState(() {
+                                                            vocabexSelected = false;
+
+                                                          });
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                          margin: const EdgeInsets.all(15.0),
+                                                          padding: const EdgeInsets.all(3.0),
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(color: Colors.black26)
+                                                          ),
+                                                          child: Text('More info', style:  WordStyle.more)),
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
                                     ],
                                   ),
-                                  SizedBox(height: 20,),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(verossaSelected == false) {
-                                        setState(() {
-                                          verossaSelected = true;
-                                        });
-                                      } else {
-                                        setState(() {
-                                          verossaSelected = false;
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                        margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(3.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
-                                        ),
-                                        child: Text('More info', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                  ),
-
                                 ],
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Center(
-                            child: VisibilityDetector(
+                              Center(
+                                child: AnimatedContainer(
+                                  //color: Colors.white,
+                                    decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
 
-                              key: Key('Phone'),
 
-                              onVisibilityChanged: (visibilityInfo) {
-                                var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                                debugPrint(
-                                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                                if(visiblePercentage > 10) {
-                                  print('>10');
-                                  animationControllerForPhone.forward();
-                                }
-                                if(visiblePercentage == 0) {
-                                  print('<50');
-                                  animationControllerForPhone.reverse();
-                                }
+                                    height: vocabexACHeight(),
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                    child: VisibilityDetector(
 
-                              },
-                              child: FadeIn(
-                                duration: Duration(milliseconds: 1000),
-                                manualTrigger: true,
-                                animate: false,
-                                controller: ( controller ) => animationControllerForPhone = controller,
+                                      key: Key('MoreVocabex'),
 
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: screenWidth > 726 ? 150.0 : 60),
-                                  child: Container(
+                                      onVisibilityChanged: (visibilityInfo) {
+                                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                        debugPrint(
+                                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                        if(visiblePercentage > 10) {
+                                          print('>10');
+                                          animationControllerForMoreVocabex.forward();
+                                        }
+                                        if(visiblePercentage == 0) {
+                                          print('<50');
+                                          animationControllerForMoreVocabex.reverse();
+                                        }
 
-                                      height: 500,
-                                      width: 300,
+                                      },
+                                      child: FadeIn(
+                                        duration: Duration(milliseconds: 700),
+                                        manualTrigger: true,
+                                        animate: false,
+                                        controller: ( controller ) => animationControllerForMoreVocabex = controller,
 
-                                      child: Image.asset('assets/HomePageScreen.jpg')),
-                                ),
+                                        child: screenWidth > 1025 ? Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: vocabexSelected == true ? Column(
 
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 0.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+
+
+
+                                                        height: 490,
+                                                        width: 230,
+
+                                                        child: Image(image:Images.vocabexSS3)),
+                                                    SizedBox(width: 20,),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(bottom: 0.0),
+                                                      child: Column(
+                                                        children: [
+
+                                                          Container(
+                                                            width: 200,
+                                                            child: Text(Texts.vocabexSS3,
+
+                                                                style: WordStyle.general),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 20,),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 40, top: 0),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+
+
+                                                              height: 490,
+                                                              width: 230,
+
+                                                              child: Image(image:Images.vocabexSS1)),
+                                                          SizedBox(width: 20,),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(bottom: 0.0),
+                                                            child: Column(
+                                                              children: [
+
+                                                                Container(
+                                                                  width: 200,
+                                                                  child: Text(Texts.vocabexSS2,
+
+                                                                      style: WordStyle.general),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+
+                                                        ],
+                                                      ),
+                                                    ),
+
+
+
+
+
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 0.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+
+
+                                                        height: 490,
+                                                        width: 230,
+
+                                                        child: Image(image:Images.vocabexSS4)),
+                                                    SizedBox(width: 20,),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(bottom: 0.0),
+                                                      child: Column(
+                                                        children: [
+
+                                                          Container(
+                                                            width: 200,
+                                                            child: Text(Texts.vocabexSS4,
+
+                                                                style: WordStyle.general),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+
+
+
+
+
+
+                                                  ],
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(vocabexSelected == false) {
+                                                    setState(() {
+                                                      vocabexSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      vocabexSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 0.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ) : Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: vocabexSelected == true ? Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image: Images.vocabexSS3)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.vocabexSS3,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 0, top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.vocabexSS1)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.vocabexSS2,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.vocabexSS4)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.vocabexSS4,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(vocabexSelected == false) {
+                                                    setState(() {
+                                                      vocabexSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      vocabexSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 0.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ),
+                                      ),
+                                    )),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                    ],
-                  ),
-                  Center(
-                    child: AnimatedContainer(
-                      //color: Colors.white,
-                        decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
 
 
-                        height: verossaACHeight(),
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.ease,
-                        child: VisibilityDetector(
-
-                          key: Key('MoreVerossa'),
-
-                          onVisibilityChanged: (visibilityInfo) {
-                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                            debugPrint(
-                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                            if(visiblePercentage > 10) {
-                              print('>10');
-                              animationControllerForMoreVerossa.forward();
-                            }
-                            if(visiblePercentage == 0) {
-                              print('<50');
-                              animationControllerForMoreVerossa.reverse();
-                            }
-
-                          },
-                          child: FadeIn(
-                            duration: Duration(milliseconds: 700),
-                            manualTrigger: true,
-                            animate: false,
-                            controller: ( controller ) => animationControllerForMoreVerossa = controller,
-
-                            child: screenWidth > 1025 ? Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: verossaSelected == true ? Column(
-
+                              //Verossa
+                              SizedBox(height: 50,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                //crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  //slight delay in fade in
+                                  Column(
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 0),
-                                        child: Row(
-                                          children: [
+                                      Row(
+                                        children: [
+                                          Center(
+                                            child: VisibilityDetector(
 
-                                            Container(
+                                              key: Key('Phone'),
 
+                                              onVisibilityChanged: (visibilityInfo) {
+                                                var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                                debugPrint(
+                                                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                                if(visiblePercentage > 10) {
+                                                  print('>10');
+                                                  animationControllerForPhone.forward();
+                                                }
+                                                if(visiblePercentage == 0) {
+                                                  print('<50');
+                                                  animationControllerForPhone.reverse();
+                                                }
 
-                                                height: 490,
-                                                width: 230,
+                                              },
+                                              child: FadeIn(
+                                                duration: Duration(milliseconds: 1000),
+                                                manualTrigger: true,
+                                                animate: false,
+                                                controller: ( controller ) => animationControllerForPhone = controller,
 
-                                                child: Image.asset('assets/screenshot4.jpg')),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(left: screenWidth > 1025 ? 105.0 : 0),
+                                                  child: Container(
+
+                                                      height: 500,
+                                                      width: screenWidth > 760 ? 300 : 245,
+
+                                                      child: Image(image:Images.screenshotHomePage)),
+                                                ),
+
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Center(
+                                        child: VisibilityDetector(
+
+                                          key: Key('VTitle'),
+
+                                          onVisibilityChanged: (visibilityInfo) {
+                                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                            debugPrint(
+                                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                            if(visiblePercentage > 10) {
+                                              print('>10');
+                                              animationControllerForVTitle.forward();
+                                            }
+                                            if(visiblePercentage == 0) {
+                                              print('<50');
+                                              animationControllerForVTitle.reverse();
+                                            }
+
+                                          },
+                                          child: FadeIn(
+                                            duration: Duration(milliseconds: 1000),
+                                            manualTrigger: true,
+                                            animate: false,
+                                            controller: ( controller ) => animationControllerForVTitle = controller,
+
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 0),
                                               child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                          decoration: BoxDecoration(
+                                                            border: Border.all(),
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
+                                                          height: 75,
+                                                          width: 75,
+                                                          child: Image(image: Images.verossaLogo) ),
+                                                      SizedBox(width: 20),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Container(
 
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot1,
+                                                              child: Text('Verossa Valey', style: WordStyle.appTitle)),
+                                                          Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(left: 4,top: 2.0),
+                                                                child: Container(
+                                                                    height: 10,
+                                                                    width: 10,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors.teal,
+                                                                        shape: BoxShape.circle
+                                                                    )),
+                                                              ),
+                                                              SizedBox(width:5),
+                                                              Container(
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
+                                                                  child: Text('Dart', style: WordStyle.swift)),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
+
+                                                  SizedBox(height: 10,),
+                                                  Container(
+
+                                                      child: Text(Texts.verossaDescription, style: WordStyle.general,)),
+                                                  SizedBox(height: 60,),
+                                                  Container(
+                                                    child: Text('Technologies', style: WordStyle.technologies),),
+                                                  SizedBox(height: 10,),
+                                                  Row(children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          child: Text('Flutter', style: WordStyle.general),),
+                                                        Container(
+                                                            child: Text('Android Studio', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Firebase', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Git', style: WordStyle.general)),
+
+                                                      ],),
+                                                    SizedBox(width: 20,),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                            child: Text('Stripe Payments', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('SendGrid Email', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Provider', style: WordStyle.general)),
+
+                                                      ],)
+                                                  ],),
+                                                  SizedBox(height: 20,),
+
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                          height: 50,
+                                                          width: 50,
+                                                          child: Image(image: Images.testFlightIcon, )),
+                                                      SizedBox(width:10),
+                                                      Container(child: Text('Available on TestFlight', style: WordStyle.general)),
+                                                    ],
+                                                  ),
+
+
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 25.0, top: 10),
+                                                    child: GestureDetector(
+                                                      onTap: (){
+                                                        if(verossaSelected == false) {
+                                                          setState(() {
+                                                            verossaSelected = true;
+                                                          });
+                                                        } else {
+                                                          setState(() {
+                                                            verossaSelected = false;
+                                                          });
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                          margin: const EdgeInsets.all(15.0),
+                                                          padding: const EdgeInsets.all(3.0),
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(color: Colors.black26)
+                                                          ),
+                                                          child: Text('More info', style:  WordStyle.more)),
+                                                    ),
+                                                  ),
+
                                                 ],
                                               ),
                                             ),
-
-                                          ],
+                                          ),
                                         ),
                                       ),
-                                      SizedBox(width: 20,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 40, top: 0),
-                                        child: Row(
-                                          children: [
-                                            Container(
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image.asset('assets/screenshot3.jpg')),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot2,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-
-
-
-
-
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 0),
-                                        child: Row(
-                                          children: [
+                                  
 
-                                            Container(
-
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image.asset('assets/screenshot5.jpg')),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot3,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(width: 20,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 40, top: 0),
-                                        child: Row(
-                                          children: [
-                                            Container(
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image.asset('assets/screenshot6.jpg')),
-                                            SizedBox(width: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot4,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-
-                                          ],
-                                        ),
-                                      ),
-
-
-
-
-
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(verossaSelected == false) {
-                                        setState(() {
-                                          verossaSelected = true;
-                                        });
-                                      } else {
-
-
-
-                                        setState(() {
-                                          verossaSelected = false;
-                                        });
-
-
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 0.0),
-                                      child: Container(
-                                        //margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(0.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
-                                        ),
-                                        child: Icon(Icons.arrow_drop_up_sharp),
-                                      ),
-                                    ),
-                                  ),
                                 ],
-                              ) : Container(),
-                            ) : Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: verossaSelected == true ? Column(
+                              ),
+                              Center(
+                                child: AnimatedContainer(
+                                  //color: Colors.white,
+                                    decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
+
+
+                                    height: verossaACHeight(),
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                    child: VisibilityDetector(
+
+                                      key: Key('MoreVerossa'),
+
+                                      onVisibilityChanged: (visibilityInfo) {
+                                        var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                        debugPrint(
+                                            'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                        if(visiblePercentage > 10) {
+                                          print('>10');
+                                          animationControllerForMoreVerossa.forward();
+                                        }
+                                        if(visiblePercentage == 0) {
+                                          print('<50');
+                                          animationControllerForMoreVerossa.reverse();
+                                        }
+
+                                      },
+                                      child: FadeIn(
+                                        duration: Duration(milliseconds: 700),
+                                        manualTrigger: true,
+                                        animate: false,
+                                        controller: ( controller ) => animationControllerForMoreVerossa = controller,
+
+                                        child: screenWidth > 1025 ? Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: verossaSelected == true ? Column(
+
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Row(
+                                                      children: [
+
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot1)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot1,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 20,),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 40, top: 0),
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot2)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot2,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+
+
+
+
+
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Row(
+                                                      children: [
+
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot3)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot3,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 20,),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 40, top: 0),
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot4)),
+                                                        SizedBox(width: 20,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot4,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+
+
+                                                      ],
+                                                    ),
+                                                  ),
+
+
+
+
+
+                                                ],
+                                              ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(verossaSelected == false) {
+                                                    setState(() {
+                                                      verossaSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      verossaSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 0.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ) : Padding(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          child: verossaSelected == true ? Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image: Images.screenshot1)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot1,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 0, top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot2)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot2,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot3)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot3,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 0, top: 0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+
+                                                            height: 490,
+                                                            width: 230,
+
+                                                            child: Image(image:Images.screenshot4)),
+                                                        SizedBox(height: 0,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(bottom: 0.0),
+                                                          child: Column(
+                                                            children: [
+
+                                                              Container(
+                                                                width: 200,
+                                                                child: Text(Texts.screenshot4,
+
+                                                                    style: WordStyle.general),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  if(verossaSelected == false) {
+                                                    setState(() {
+                                                      verossaSelected = true;
+                                                    });
+                                                  } else {
+
+
+
+                                                    setState(() {
+                                                      verossaSelected = false;
+                                                    });
+
+
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 15.0),
+                                                  child: Container(
+                                                    //margin: const EdgeInsets.all(15.0),
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black26)
+                                                    ),
+                                                    child: Icon(Icons.arrow_drop_up_sharp),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ) : Container(),
+                                        ),
+                                      ),
+                                    )),
+                              ),
+
+
+
+
+                              //Java Quiz
+                              SizedBox(height: 50,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                //crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  //slight delay in fade in
+                                  Column(
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 0),
-                                        child: Row(
-                                          children: [
+                                      Row(
+                                        children: [
+                                          Center(
+                                            child: VisibilityDetector(
 
-                                            Container(
+                                              key: Key('javaPhone'),
 
+                                              onVisibilityChanged: (visibilityInfo) {
+                                                var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                                debugPrint(
+                                                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                                if(visiblePercentage > 10) {
+                                                  print('>10');
+                                                  animationControllerForJavaPhone.forward();
+                                                }
+                                                if(visiblePercentage == 0) {
+                                                  print('<50');
+                                                  animationControllerForJavaPhone.reverse();
+                                                }
 
-                                                height: 490,
-                                                width: 230,
+                                              },
+                                              child: FadeIn(
+                                                duration: Duration(milliseconds: 1000),
+                                                manualTrigger: true,
+                                                animate: false,
+                                                controller: ( controller ) => animationControllerForJavaPhone = controller,
 
-                                                child: Image.asset('assets/screenshot4.jpg')),
-                                            SizedBox(width: 50,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(left: screenWidth > 1025 ? 130 : screenWidth > 726 && screenWidth < 1025 ? 30.0 : 10),
+                                                  child: Container(
+
+                                                      height: 450,
+                                                      width: 220,
+
+                                                      child: Image(image:Images.javaSS1)),
+                                                ),
+
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Center(
+                                        child: VisibilityDetector(
+
+                                          key: Key('javaTitle'),
+
+                                          onVisibilityChanged: (visibilityInfo) {
+                                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                                            debugPrint(
+                                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                                            if(visiblePercentage > 10) {
+                                              print('>10');
+                                              animationControllerForJava.forward();
+                                            }
+                                            if(visiblePercentage == 0) {
+                                              print('<50');
+                                              animationControllerForJava.reverse();
+                                            }
+
+                                          },
+                                          child: FadeIn(
+                                            duration: Duration(milliseconds: 1000),
+                                            manualTrigger: true,
+                                            animate: false,
+                                            controller: ( controller ) => animationControllerForJava = controller,
+
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 30),
                                               child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
 
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot1,
+                                                          height: 75,
+                                                          width: 75,
+                                                          child: Image(image: Images.javaLogo) ),
+                                                      SizedBox(width: 20),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Container(
+                                                              child: Text('Java Quiz App', style: WordStyle.appTitle)),
+                                                          Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(left: 4,top: 2.0),
+                                                                child: Container(
+                                                                    height: 10,
+                                                                    width: 10,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors.deepOrangeAccent,
+                                                                        shape: BoxShape.circle
+                                                                    )),
+                                                              ),
+                                                              SizedBox(width:5),
+                                                              Container(
 
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
+                                                                  child: Text('Java', style: WordStyle.swift)),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
+
+                                                  SizedBox(height: 10,),
+                                                  Container(
+
+                                                      child: Text(Texts.javaDescription, style: WordStyle.general,)),
+                                                  SizedBox(height: 60,),
+                                                  Container(
+                                                    child: Text('Technologies', style: WordStyle.technologies),),
+                                                  SizedBox(height: 10,),
+                                                  Row(children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          child: Text('Android Studio', style: WordStyle.general),),
+                                                        Container(
+                                                            child: Text('Observer Pattern', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Firebase', style: WordStyle.general)),
+                                                        Container(
+                                                            child: Text('Git', style: WordStyle.general)),
+
+                                                      ],),
+
+                                                  ],),
+                                                  SizedBox(height: 20,),
+
+                                                  GestureDetector(
+                                                    onTap: () {_launchJavaQuiz();},
+                                                    child: Container(
+                                                        height: 50,
+                                                        width: 150,
+
+                                                        child: Image(image: Images.availableOnGooglePlay, )),
+                                                  ),
+                                                  SizedBox(height: 50,),
+
+
+
+
                                                 ],
                                               ),
                                             ),
-
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 0, top: 0),
-                                        child: Row(
-                                          children: [
-                                            Container(
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image.asset('assets/screenshot3.jpg')),
-                                            SizedBox(width: 50,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot2,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 0),
-                                        child: Row(
-                                          children: [
-
-                                            Container(
 
 
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image.asset('assets/screenshot5.jpg')),
-                                            SizedBox(width: 50,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot3,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 0, top: 0),
-                                        child: Row(
-                                          children: [
-                                            Container(
-
-                                                height: 490,
-                                                width: 230,
-
-                                                child: Image.asset('assets/screenshot6.jpg')),
-                                            SizedBox(width: 50,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 0.0),
-                                              child: Column(
-                                                children: [
-
-                                                  Container(
-                                                    width: 200,
-                                                    child: Text(Texts.screenshot4,
-
-                                                      style: TextStyle(height: 1.5,fontFamily: 'Cormorant',color: Colors.black, fontSize: Texts.fontSize, fontWeight: FontWeight.w500),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: (){
-                                      if(verossaSelected == false) {
-                                        setState(() {
-                                          verossaSelected = true;
-                                        });
-                                      } else {
-
-
-
-                                        setState(() {
-                                          verossaSelected = false;
-                                        });
-
-
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 0.0),
-                                      child: Container(
-                                        //margin: const EdgeInsets.all(15.0),
-                                        padding: const EdgeInsets.all(0.0),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black26)
-                                        ),
-                                        child: Icon(Icons.arrow_drop_up_sharp),
-                                      ),
-                                    ),
-                                  ),
                                 ],
-                              ) : Container(),
-                            ),
+                              ),
+
+
+
+
+                            ],
+
                           ),
-                        )),
-                  ),
+                          Stack(children: [
+                            Container(
+                              color: Colors.white70,
+                              child: orientation == Orientation.portrait
+                                  ? Column(
+                                children: childrenBottom,
+                              )
+                                  : Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
 
-
-
-
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //slight delay in fade in
-
-                      Row(
-                        children: [
-                          Center(
-                            child: VisibilityDetector(
-
-                              key: Key('TPhone'),
-
-                              onVisibilityChanged: (visibilityInfo) {
-                                var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                                debugPrint(
-                                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                                if(visiblePercentage > 10) {
-                                  print('>10');
-                                  animationControllerForTPhone.forward();
-                                }
-                                if(visiblePercentage == 0) {
-                                  print('<50');
-                                  animationControllerForTPhone.reverse();
-                                }
-
-                              },
-                              child: FadeIn(
-                                duration: Duration(milliseconds: 1000),
-                                manualTrigger: true,
-                                animate: false,
-                                controller: ( controller ) => animationControllerForTPhone = controller,
-
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 0.0),
-                                  child: Container(
-
-                                      height: 500,
-                                      width: 300,
-
-                                      child: Image.asset('assets/CommingSoon.jpg')),
+                                  children: childrenBottom.reversed.toList(),
                                 ),
-
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-
-                      Center(
-                        child: VisibilityDetector(
-
-                          key: Key('TTitle'),
-
-                          onVisibilityChanged: (visibilityInfo) {
-                            var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                            debugPrint(
-                                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                            if(visiblePercentage > 10) {
-                              print('>10');
-                              animationControllerForTTitle.forward();
-                            }
-                            if(visiblePercentage == 0) {
-                              print('<50');
-                              animationControllerForTTitle.reverse();
-                            }
-
-                          },
-                          child: FadeIn(
-                            duration: Duration(milliseconds: 1000),
-                            manualTrigger: true,
-                            animate: false,
-                            controller: ( controller ) => animationControllerForTTitle = controller,
-
-                            child: Padding(
-                              padding: EdgeInsets.only(left: screenWidth > 727 ? 150 : 60, right: screenWidth > 640 ? 110 : 70),
+                            Container(
+                              width: screenWidth,
+                              height: 300,//screenWidth < 1173 ? 300 + c : 300 -c,//screenWidth * 0.2123,
+                              color: Colors.black45,
+                            ),
+                            Center(
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                      child: Text('Vocabear', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 35, fontWeight: FontWeight.w500),)),
-                                  SizedBox(height: 10,),
-                                  Container(
-                                      child: Text('English vocabulary builder', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                  SizedBox(height: 60,),
-                                  Container(
-                                      child: Text('Technologies', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                  SizedBox(height: 10,),
-                                  Row(children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            child: Text('Swift', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Xcode', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Firebase', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:8.0),
+                                    child: Container(child: Text('This web app is build with Flutter', style: WordStyle.bottomHeaderMadeBy)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18.0),
+                                    child: Container(
+                                        child: Text('Contact', style: WordStyle.contact)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18.0),
+                                    child: Container(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            IconTheme(
+                                                data: IconThemeData(
+                                                    color: Colors.white
+                                                ),
+                                                child: Icon(Icons.email)),
+                                            SizedBox(width: 10,),
+                                            Text('levmartens@gmail.com', style: WordStyle.bottomHeader),
+                                          ],
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18.0, left: 7),
+                                    child: Container(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            IconTheme(
+                                                data: IconThemeData(
+                                                    color: Colors.white
+                                                ),
+                                                child: Icon(Icons.phone)),
+                                            SizedBox(width: 10,),
+                                            Text('+61478190410                ', style: WordStyle.bottomHeader),
+                                          ],
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18.0),
+                                    child: Container(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            IconTheme(
+                                                data: IconThemeData(
+                                                    color: Colors.white
+                                                ),
+                                                child: Icon(Icons.pin_drop)),
+                                            SizedBox(width: 10,),
+                                            Text('Melbourne, Victoria     ', style: WordStyle.bottomHeader,),
+                                          ],
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 30,top: 17.0),
+                                    child: Container(
+                                        child: GestureDetector(
+                                          onTap: () {_launchGitHubURL();},
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Container(
 
 
-                                      ],),
-                                    SizedBox(width: 20,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            child: Text('Cocoapods', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Core Data', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                        Container(
-                                            child: Text('Networking', style: TextStyle(fontFamily: 'Cormorant',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),)),
-                                      ],)
-                                  ],),
-                                  SizedBox(height: 60,),
+
+
+                                                  height: 30,
+                                                  width: 30,
+
+                                                  child: Image.asset('assets/github2.png')),
+                                              SizedBox(width: 5,),
+                                              Text('github.com/LevMartens     ', style: WordStyle.bottomHeader),
+                                            ],
+                                          ),
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 0,top: 12.0),
+                                    child: Container(
+                                        child: GestureDetector(
+                                          onTap: () {_launchStackOFURL();},
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+
+                                                  height: 30,
+                                                  width: 30,
+
+                                                  child: Image.asset('assets/stack.png')),
+                                              SizedBox(width: 5,),
+                                              Text('Stackoverflow               ', style: WordStyle.bottomHeader),
+                                            ],
+                                          ),
+                                        )),
+                                  ),
 
 
                                 ],
                               ),
                             ),
-                          ),
-                        ),
+
+                          ]),
+                        ],
                       ),
-
-                    ],
-                  ),
-
-
-
-                ],
-
-              ),
-              Stack(children: [
-                Container(
-                  color: Colors.white70,
-                  child: orientation == Orientation.portrait
-                      ? Column(
-                    children: childrenBottom,
-                  )
-                      : Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-
-                      children: childrenBottom.reversed.toList(),
                     ),
-                  ),
+                  ],
                 ),
-                Container(
-                  width: screenWidth,
-                  height: 300,//screenWidth < 1173 ? 300 + c : 300 -c,//screenWidth * 0.2123,
-                  color: Colors.black45,
-                ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
-                        child: Container(
-                            child: Text('Contact', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 30, fontWeight: FontWeight.w200),)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
-                        child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.email),
-                                SizedBox(width: 10,),
-                                Text('levmartens@gmail.com', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
-                        child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.phone),
-                                SizedBox(width: 10,),
-                                Text('+61478190410                ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
-                        child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.pin_drop),
-                                SizedBox(width: 10,),
-                                Text('Melbourne, Victoria     ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30,top: 18.0),
-                        child: Container(
-                            child: GestureDetector(
-                              onTap: () {_launchGitHubURL();},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-
-
-
-
-                                      height: 30,
-                                      width: 30,
-
-                                      child: Image.asset('assets/github2.png')),
-                                  SizedBox(width: 5,),
-                                  Text('github.com/LevMartens     ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                                ],
-                              ),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 0,top: 18.0),
-                        child: Container(
-                            child: GestureDetector(
-                              onTap: () {_launchStackOFURL();},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-
-                                      height: 30,
-                                      width: 30,
-
-                                      child: Image.asset('assets/stack.png')),
-                                  SizedBox(width: 5,),
-                                  Text('Stackoverflow               ', style: TextStyle(fontFamily: 'Cormorant',color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),),
-                                ],
-                              ),
-                            )),
-                      ),
-
-                    ],
-                  ),
-                ),
-
-              ]),
-            ],
-          ),
+              ),]
         ),
       ),
     );

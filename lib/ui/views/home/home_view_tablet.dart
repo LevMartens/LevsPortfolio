@@ -148,25 +148,25 @@ class _HomePageState extends State<HomeTablet> {
     }
 
     double totalACHeightAbove1025() {
-      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == false) { return 2355;}
-      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == true) { return 4985;}
-      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == false) { return 2965;}
-      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == false) { return 3365;}
-      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == true) { return 3365;}
-      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == false) { return 3975;}
-      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == true) { return 3975;}
-      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == true) { return 4375;}
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == false) { return 2345;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == true) { return 4975;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == false) { return 2955;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == false) { return 3355;}
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == true) { return 3355;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == false) { return 3965;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == true) { return 3965;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == true) { return 4365;}
 
     }
     double totalACHeightBelow1025() {
-      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == false) {  return 2355;}
-      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == true) { return 6665;}
-      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == false) { return 3165;}
-      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == false) { return 3855;}
-      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == true) { return 4355;}
-      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == false) { return 4665;}
-      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == true) { return 5165;}
-      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == true) { return 4865;}
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == false) {  return 2345;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == true) { return 6655;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == false) { return 3155;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == false) { return 3845;}
+      if(aboutMeSelected == false && vocabexSelected == false && verossaSelected == true) { return 4345;}
+      if(aboutMeSelected == true && vocabexSelected == true && verossaSelected == false) { return 4655;}
+      if(aboutMeSelected == true && vocabexSelected == false && verossaSelected == true) { return 5155;}
+      if(aboutMeSelected == false && vocabexSelected == true && verossaSelected == true) { return 4855;}
 
     }
 
