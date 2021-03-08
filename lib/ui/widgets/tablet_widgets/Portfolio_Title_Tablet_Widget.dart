@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import '../../Data.dart';
+import '../../../Data.dart';
 
 class PortfolioTitleTablet extends StatefulWidget {
   @override

@@ -5,7 +5,7 @@ import 'package:lev_martens/ui/provider/value_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../Data.dart';
+import '../../../Data.dart';
 
 class AboutMeTablet extends StatefulWidget {
   @override

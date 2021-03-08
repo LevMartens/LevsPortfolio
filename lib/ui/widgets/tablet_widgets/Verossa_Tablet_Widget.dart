@@ -4,27 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:lev_martens/ui/provider/value_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import '../../Data.dart';
+import '../../../Data.dart';
 
-class VocabexTablet extends StatefulWidget {
+class VerossaTablet extends StatefulWidget {
   @override
-  _VocabexTabletState createState() => _VocabexTabletState();
+  _VerossaTabletState createState() => _VerossaTabletState();
 }
 
-class _VocabexTabletState extends State<VocabexTablet> {
-  AnimationController animationControllerForMoreVocabex;
-  AnimationController animationControllerForVocabex;
-  AnimationController animationControllerForVocabexPhone;
-  bool vocabexSelected = false;
+class _VerossaTabletState extends State<VerossaTablet> {
+  AnimationController animationControllerForMoreVerossa;
+  AnimationController animationControllerForPhone;
+  AnimationController animationControllerForTPhone;
+  AnimationController animationControllerForVTitle;
+  AnimationController animationControllerForTTitle;
+  bool verossaSelected = false;
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    double vocabexACHeight() {
-      if(vocabexSelected == true && screenWidth < 1025) { return 1500;}
-      if(vocabexSelected == true && screenWidth > 1025) { return 1010;}
-      if(vocabexSelected == false) { return 0;} else {return 0;}
+    double verossaACHeight() {
+      if(verossaSelected == true && screenWidth < 1025) { return 2000;}
+      if(verossaSelected == true && screenWidth > 1025) { return 1010;}
+      if(verossaSelected == false) { return 0;} else {return 0;}
     }
-    vocabexSelected = Provider.of<ValueProvider>(context, listen: true).vocabexSelectedTablet;
+    verossaSelected = Provider.of<ValueProvider>(context, listen: true).verossaSelectedTablet;
     return Column(children: [
       SizedBox(height: 50,),
       Row(
@@ -32,25 +34,25 @@ class _VocabexTabletState extends State<VocabexTablet> {
         children: [
           Center(
             child: VisibilityDetector(
-              key: Key('VocabexTitle'),
+              key: Key('VTitle'),
               onVisibilityChanged: (visibilityInfo) {
                 var visiblePercentage = visibilityInfo.visibleFraction * 100;
                 debugPrint(
                     'Widget ${visibilityInfo.key} is $visiblePercentage% visible');
                 if(visiblePercentage > 10) {
                   print('>10');
-                  animationControllerForVocabex.forward();
+                  animationControllerForVTitle.forward();
                 }
                 if(visiblePercentage == 0) {
                   print('<50');
-                  animationControllerForVocabex.reverse();
+                  animationControllerForVTitle.reverse();
                 }
               },
               child: FadeIn(
                 duration: Duration(milliseconds: 1000),
                 manualTrigger: true,
                 animate: false,
-                controller: ( controller ) => animationControllerForVocabex = controller,
+                controller: ( controller ) => animationControllerForVTitle = controller,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 70),
                   child: Column(
@@ -59,15 +61,19 @@ class _VocabexTabletState extends State<VocabexTablet> {
                       Row(
                         children: [
                           Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                               height: 75,
                               width: 75,
-                              child: Image(image: Images.vocabexLogo) ),
+                              child: Image(image: Images.verossaLogo) ),
                           SizedBox(width: 20),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                  child: Text('Vocabex', style: WordStyle.appTitle)),
+                                  child: Text('Verossa Valley', style: WordStyle.appTitle)),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -77,13 +83,13 @@ class _VocabexTabletState extends State<VocabexTablet> {
                                         height: 10,
                                         width: 10,
                                         decoration: BoxDecoration(
-                                            color: Colors.orange,
+                                            color: Colors.teal,
                                             shape: BoxShape.circle
                                         )),
                                   ),
                                   SizedBox(width:5),
                                   Container(
-                                      child: Text('Swift', style: WordStyle.swift)),
+                                      child: Text('Dart', style: WordStyle.swift)),
                                 ],
                               ),
                             ],
@@ -92,8 +98,7 @@ class _VocabexTabletState extends State<VocabexTablet> {
                       ),
                       SizedBox(height: 10,),
                       Container(
-                          width: screenWidth > 1025 ? 320 : 220,
-                          child: Text(Strings.vocabexDescription, style: WordStyle.general,)),
+                          child: Text(Strings.verossaDescription, style: WordStyle.general,)),
                       SizedBox(height: 60,),
                       Container(
                         child: Text('Technologies', style: WordStyle.technologies),),
@@ -103,9 +108,9 @@ class _VocabexTabletState extends State<VocabexTablet> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              child: Text('CoreData', style: WordStyle.general),),
+                              child: Text('Flutter', style: WordStyle.general),),
                             Container(
-                                child: Text('Xcode', style: WordStyle.general)),
+                                child: Text('Android Studio', style: WordStyle.general)),
                             Container(
                                 child: Text('Firebase', style: WordStyle.general)),
                             Container(
@@ -116,28 +121,32 @@ class _VocabexTabletState extends State<VocabexTablet> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                                child: Text('Multithreading', style: WordStyle.general)),
+                                child: Text('Stripe Payments', style: WordStyle.general)),
                             Container(
-                                child: Text('Vision', style: WordStyle.general)),
+                                child: Text('SendGrid Email', style: WordStyle.general)),
                             Container(
-                                child: Text('Observer', style: WordStyle.general)),
+                                child: Text('Provider', style: WordStyle.general)),
                           ],)
                       ],),
                       SizedBox(height: 20,),
-                      GestureDetector(
-                        child: Container(
-                            height: 50,
-                            width: 150,
-                            child: Image(image: Images.availableOnAppStore, )),
+                      Row(
+                        children: [
+                          Container(
+                              height: 50,
+                              width: 50,
+                              child: Image(image: Images.testFlightIcon, )),
+                          SizedBox(width:10),
+                          Container(child: Text('Available on TestFlight', style: WordStyle.general)),
+                        ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 25.0),
+                        padding: const EdgeInsets.only(left: 25.0, top: 10),
                         child: GestureDetector(
                           onTap: (){
-                            if(vocabexSelected == false) {
-                              Provider.of<ValueProvider>(context, listen: false).changeVocabexSelectedTabletTo(true);
+                            if(verossaSelected == false) {
+                              Provider.of<ValueProvider>(context, listen: false).changeVerossaSelectedTabletTo(true);
                             } else {
-                              Provider.of<ValueProvider>(context, listen: false).changeVocabexSelectedTabletTo(false);
+                              Provider.of<ValueProvider>(context, listen: false).changeVerossaSelectedTabletTo(false);
                             }
                           },
                           child: Container(
@@ -159,31 +168,31 @@ class _VocabexTabletState extends State<VocabexTablet> {
             children: [
               Center(
                 child: VisibilityDetector(
-                  key: Key('VocabexPhone'),
+                  key: Key('Phone'),
                   onVisibilityChanged: (visibilityInfo) {
                     var visiblePercentage = visibilityInfo.visibleFraction * 100;
                     debugPrint(
                         'Widget ${visibilityInfo.key} is $visiblePercentage% visible');
                     if(visiblePercentage > 10) {
                       print('>10');
-                      animationControllerForVocabexPhone.forward();
+                      animationControllerForPhone.forward();
                     }
                     if(visiblePercentage == 0) {
                       print('<50');
-                      animationControllerForVocabexPhone.reverse();
+                      animationControllerForPhone.reverse();
                     }
                   },
                   child: FadeIn(
                     duration: Duration(milliseconds: 1000),
                     manualTrigger: true,
                     animate: false,
-                    controller: ( controller ) => animationControllerForVocabexPhone = controller,
+                    controller: ( controller ) => animationControllerForPhone = controller,
                     child: Padding(
-                      padding: EdgeInsets.only(left: screenWidth > 726 ? 70.0 : 0),
+                      padding: EdgeInsets.only(left: screenWidth > 1025 ? 105.0 : 0),
                       child: Container(
                           height: 500,
-                          width: 300,
-                          child: Image(image:Images.vocabexSS2)),
+                          width: screenWidth > 760 ? 300 : 245,
+                          child: Image(image:Images.screenshotHomePage)),
                     ),
                   ),
                 ),
@@ -195,114 +204,143 @@ class _VocabexTabletState extends State<VocabexTablet> {
       Center(
         child: AnimatedContainer(
             decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.black, width: 10), right: BorderSide(color: Colors.black, width: 10))),
-            height: vocabexACHeight(),
+            height: verossaACHeight(),
             duration: Duration(milliseconds: 500),
             curve: Curves.ease,
             child: VisibilityDetector(
-              key: Key('MoreVocabex'),
+              key: Key('MoreVerossa'),
               onVisibilityChanged: (visibilityInfo) {
                 var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                debugPrint(
-                    'Widget ${visibilityInfo.key} is $visiblePercentage% visible');
                 if(visiblePercentage > 10) {
-                  print('>10');
-                  animationControllerForMoreVocabex.forward();
+                  animationControllerForMoreVerossa.forward();
                 }
                 if(visiblePercentage == 0) {
-                  print('<50');
-                  animationControllerForMoreVocabex.reverse();
+                  animationControllerForMoreVerossa.reverse();
                 }
               },
               child: FadeIn(
                 duration: Duration(milliseconds: 700),
                 manualTrigger: true,
                 animate: false,
-                controller: ( controller ) => animationControllerForMoreVocabex = controller,
+                controller: ( controller ) => animationControllerForMoreVerossa = controller,
                 child: screenWidth > 1025 ? Padding(
                   padding: const EdgeInsets.only(bottom: 0),
-                  child: vocabexSelected == true ? Column(
+                  child: verossaSelected == true ? Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 0.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 490,
-                                width: 230,
-                                child: Image(image:Images.vocabexSS3)),
-                            SizedBox(width: 20,),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 0.0),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: 200,
-                                    child: Text(Strings.vocabexSS3,
-                                        style: WordStyle.general),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 0),
+                            child: Row(
+                              children: [
+                                Container(
+                                    height: 490,
+                                    width: 230,
+                                    child: Image(image:Images.screenshot1)),
+                                SizedBox(width: 20,),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 0.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 200,
+                                        child: Text(Strings.screenshot1,
+                                            style: WordStyle.general),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            SizedBox(width: 20,),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 40, top: 0),
-                              child: Row(
-                                children: [
-                                  Container(
-                                      height: 490,
-                                      width: 230,
-                                      child: Image(image:Images.vocabexSS1)),
-                                  SizedBox(width: 20,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 0.0),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: 200,
-                                          child: Text(Strings.vocabexSS2,
-                                              style: WordStyle.general),
-                                        ),
-                                      ],
-                                    ),
+                          ),
+                          SizedBox(width: 20,),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40, top: 0),
+                            child: Row(
+                              children: [
+                                Container(
+                                    height: 490,
+                                    width: 230,
+                                    child: Image(image:Images.screenshot2)),
+                                SizedBox(width: 20,),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 0.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 200,
+                                        child: Text(Strings.screenshot2,
+                                            style: WordStyle.general),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 0.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 490,
-                                width: 230,
-                                child: Image(image:Images.vocabexSS4)),
-                            SizedBox(width: 20,),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 0.0),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: 200,
-                                    child: Text(Strings.vocabexSS4,
-                                        style: WordStyle.general),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 0),
+                            child: Row(
+                              children: [
+                                Container(
+                                    height: 490,
+                                    width: 230,
+                                    child: Image(image:Images.screenshot3)),
+                                SizedBox(width: 20,),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 0.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 200,
+                                        child: Text(Strings.screenshot3,
+                                            style: WordStyle.general),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(width: 20,),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40, top: 0),
+                            child: Row(
+                              children: [
+                                Container(
+                                    height: 490,
+                                    width: 230,
+                                    child: Image(image:Images.screenshot4)),
+                                SizedBox(width: 20,),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 0.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 200,
+                                        child: Text(Strings.screenshot4,
+                                            style: WordStyle.general),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                       GestureDetector(
                         onTap: (){
-                          if(vocabexSelected == false) {
-                            Provider.of<ValueProvider>(context, listen: false).changeVocabexSelectedTabletTo(true);
+                          if(verossaSelected == false) {
+                            Provider.of<ValueProvider>(context, listen: false).changeVerossaSelectedTabletTo(true);
                           } else {
-                            Provider.of<ValueProvider>(context, listen: false).changeVocabexSelectedTabletTo(false);
+                            Provider.of<ValueProvider>(context, listen: false).changeVerossaSelectedTabletTo(false);
                           }
                         },
                         child: Padding(
@@ -320,7 +358,7 @@ class _VocabexTabletState extends State<VocabexTablet> {
                   ) : Container(),
                 ) : Padding(
                   padding: const EdgeInsets.only(bottom: 0),
-                  child: vocabexSelected == true ? Column(
+                  child: verossaSelected == true ? Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -332,7 +370,7 @@ class _VocabexTabletState extends State<VocabexTablet> {
                                 Container(
                                     height: 490,
                                     width: 230,
-                                    child: Image(image: Images.vocabexSS3)),
+                                    child: Image(image: Images.screenshot1)),
                                 SizedBox(width: 50,),
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 0.0),
@@ -340,7 +378,7 @@ class _VocabexTabletState extends State<VocabexTablet> {
                                     children: [
                                       Container(
                                         width: 200,
-                                        child: Text(Strings.vocabexSS3,
+                                        child: Text(Strings.screenshot1,
                                             style: WordStyle.general),
                                       ),
                                     ],
@@ -361,7 +399,7 @@ class _VocabexTabletState extends State<VocabexTablet> {
                                 Container(
                                     height: 490,
                                     width: 230,
-                                    child: Image(image:Images.vocabexSS1)),
+                                    child: Image(image:Images.screenshot2)),
                                 SizedBox(width: 50,),
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 0.0),
@@ -369,7 +407,7 @@ class _VocabexTabletState extends State<VocabexTablet> {
                                     children: [
                                       Container(
                                         width: 200,
-                                        child: Text(Strings.vocabexSS2,
+                                        child: Text(Strings.screenshot2,
                                             style: WordStyle.general),
                                       ),
                                     ],
@@ -390,7 +428,7 @@ class _VocabexTabletState extends State<VocabexTablet> {
                                 Container(
                                     height: 490,
                                     width: 230,
-                                    child: Image(image:Images.vocabexSS4)),
+                                    child: Image(image:Images.screenshot3)),
                                 SizedBox(width: 50,),
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 0.0),
@@ -398,7 +436,36 @@ class _VocabexTabletState extends State<VocabexTablet> {
                                     children: [
                                       Container(
                                         width: 200,
-                                        child: Text(Strings.vocabexSS4,
+                                        child: Text(Strings.screenshot3,
+                                            style: WordStyle.general),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 0, top: 0),
+                            child: Row(
+                              children: [
+                                Container(
+                                    height: 490,
+                                    width: 230,
+                                    child: Image(image:Images.screenshot4)),
+                                SizedBox(width: 50,),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 0.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 200,
+                                        child: Text(Strings.screenshot4,
                                             style: WordStyle.general),
                                       ),
                                     ],
@@ -411,10 +478,10 @@ class _VocabexTabletState extends State<VocabexTablet> {
                       ),
                       GestureDetector(
                         onTap: (){
-                          if(vocabexSelected == false) {
-                            Provider.of<ValueProvider>(context, listen: false).changeVocabexSelectedTabletTo(true);
+                          if(verossaSelected == false) {
+                            Provider.of<ValueProvider>(context, listen: false).changeVerossaSelectedTabletTo(true);
                           } else {
-                            Provider.of<ValueProvider>(context, listen: false).changeVocabexSelectedTabletTo(false);
+                            Provider.of<ValueProvider>(context, listen: false).changeVerossaSelectedTabletTo(false);
                           }
                         },
                         child: Padding(

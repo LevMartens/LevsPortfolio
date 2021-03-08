@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../Data.dart';
+import '../../../Data.dart';
 
 class JavaTablet extends StatefulWidget {
   @override

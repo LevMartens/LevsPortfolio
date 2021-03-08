@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lev_martens/ui/provider/value_provider.dart';
-import 'package:lev_martens/ui/widgets/About_Me_Tablet_Widget.dart';
+import 'package:lev_martens/ui/widgets/tablet_widgets/About_Me_Tablet_Widget.dart';
 import 'package:lev_martens/ui/widgets/Bottom_Header_Widget.dart';
 import 'package:lev_martens/ui/widgets/Header_Widget.dart';
-import 'package:lev_martens/ui/widgets/Java_Tablet_Widget.dart';
-import 'package:lev_martens/ui/widgets/Portfolio_Title_Tablet_Widget.dart';
-import 'package:lev_martens/ui/widgets/Verossa_Tablet_Widget.dart';
-import 'package:lev_martens/ui/widgets/Vocabex_Tablet_Widget.dart';
+import 'package:lev_martens/ui/widgets/tablet_widgets/Java_Tablet_Widget.dart';
+import 'package:lev_martens/ui/widgets/tablet_widgets/Portfolio_Title_Tablet_Widget.dart';
+import 'package:lev_martens/ui/widgets/tablet_widgets/Verossa_Tablet_Widget.dart';
+import 'package:lev_martens/ui/widgets/tablet_widgets/Vocabex_Tablet_Widget.dart';
 import 'package:provider/provider.dart';
 import 'package:lev_martens/Data.dart';
 
