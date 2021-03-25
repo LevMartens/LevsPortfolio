@@ -17,7 +17,6 @@ SizingInformation({
 
 @override
   String toString() {
-    // TODO: implement toString
     return 'Orientation:$orientation DeviceType:$deviceScreenType ScreenSize:$screenSize LocalWidgetSize:$localWidgetSize';
   }
 }
